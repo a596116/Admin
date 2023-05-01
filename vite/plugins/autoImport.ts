@@ -10,10 +10,11 @@ export const autoImport = (plugin: Plugin[]) => {
             resolvers: [ElementPlusResolver()],
             imports: ['vue', 'vue-router', 'pinia', '@vueuse/core',
                 {
-                    // '@/utils': [
-                    //     'env',  // import { env } from '@/utils',
-                    //     // ['env', 'myenv'] // import { env as myenv } from '@/utils',
-                    // ],
+                    '@/utils': [
+                        'env',
+                        'storage'
+                        // ['env', 'myenv'] // import { env as myenv } from '@/utils',
+                    ],
                     // 'axios': [
                     //     // default imports
                     //     ['default', 'axios'], // import { default as axios } from 'axios',
@@ -34,6 +35,7 @@ export const autoImport = (plugin: Plugin[]) => {
             dts: 'types/components.d.ts',
             // 组件的有效文件扩展名。
             extensions: ['vue'],
+
         }),
     )
 }

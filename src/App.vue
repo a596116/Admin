@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <header></header>
-
   <RouterView />
 </template>
+<style lang="scss">
+@import '#/scss/base.scss';
+</style>
