@@ -5,5 +5,14 @@
     "composite": true,
     "lib": [],
     "types": ["node", "jsdom"]
-  }
+  },
+  "include": [
+    "types/module.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "vite.config.ts",
+    "vite/**/*.ts",
+    "types/**/*.d.ts",
+    "types/**/*.ts"
+  ]
 }
