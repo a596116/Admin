@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 export const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'admin',
         redirect: '/admin',
         component: () => import('@/layouts/admin.vue'),
 

@@ -7,6 +7,6 @@ import router, { setupRouter } from './router'
 const app = createApp(App)
 setupPlugins(app)
 setupRouter(app)
-app.use(router)
+await router.isReady()
 
 app.mount('#app')

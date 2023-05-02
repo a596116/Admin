@@ -25,9 +25,12 @@
       </el-form-item>
       <slot name="button"></slot>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(FormRef)">{{
-          type == 'login' ? '登入' : '註冊'
-        }}</el-button>
+        <el-button
+          type="primary"
+          @click="submitForm(FormRef)"
+          class="relative mx-auto mt-[40px] rounded-[20px] px-[50px] py-[8px] font-black">
+          {{ type == 'login' ? '登入' : '註冊' }}
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -96,21 +99,21 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <style scoped lang="scss">
 :deep(.el-form) {
-  @apply relative w-[100%] md:w-[340px] h-full py-[40px] px-[30px];
+  @apply relative h-full w-[100%] px-[30px] py-[40px] md:w-[340px];
 
   h1 {
-    @apply relative text-hd-Text text-[24px] font-semibold mb-[40px];
+    @apply relative mb-[40px] text-[24px] font-semibold text-hd-Text;
     letter-spacing: 1px;
 
     &::before {
-      @apply content-[''] absolute left-0 bottom-[-10px] w-[80px] h-[4px] bg-hd-Text;
+      @apply absolute bottom-[-10px] left-0 h-[4px] w-[80px] bg-hd-Color content-[''];
     }
   }
   .el-form-item.is-error .el-input {
     box-shadow: 0 0 0 1px var(--el-color-danger) inset;
   }
   .el-input {
-    @apply w-full border-0 outline-none px-[20px] py-[10px] rounded-[35px] text-base;
+    @apply w-full rounded-[35px] border-0 px-[20px] py-[10px] text-base outline-none;
     border: 1px solid rgba(255, 255, 255, 0.5);
     border-right: 1px solid rgba(255, 255, 255, 0.2);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
@@ -123,11 +126,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     :deep(.el-input__suffix-inner) {
       @apply text-green-500;
     }
-  }
-
-  .el-button {
-    @apply bg-white text-black rounded-[20px] mt-[40px] px-[50px] py-[8px] border-0 font-black cursor-pointer relative text-center overflow-hidden;
-    letter-spacing: 8px;
   }
 }
 </style>

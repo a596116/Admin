@@ -4,8 +4,8 @@ export default {
     auth: true,
     name: 'admin',
     menu: {
-      title: 'Dashboard',
-      icon: 'Dashboard',
+      title: '首頁',
+      icon: 'home',
     },
   },
   children: [
@@ -14,7 +14,7 @@ export default {
       path: '/admin',
       component: () => import('@/views/Dashboard.vue'),
       meta: {
-        menu: { title: '工作台' }
+        menu: { title: '首頁' }
         , number: 1,
       },
     },

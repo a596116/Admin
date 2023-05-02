@@ -5,9 +5,9 @@
   --hd-hover-color: #bfccb5;
   --hd-click-color: #aac8a7;
   --hd-text: #3c486b;
-  --hd-hover-text: #a9b598;
+  --hd-hover-text: #2c344f;
   --hd-yellow: #ffeeb3;
-  --hd-bg: #f4f5fe;
+  --hd-bg: #f8f9fa;
 }
 
 *,
@@ -17,12 +17,13 @@
   margin: 0;
   position: relative;
   font-weight: normal;
+  // color: var(--hd-text);
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
+  color: var(--hd-text);
+  background: var(--hd-bg);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
@@ -47,4 +48,27 @@ html,
   position: relative;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  cursor: pointer;
+  background-color: #0000004d;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0003;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+a {
+  -webkit-tap-highlight-color: transparent;
 }

@@ -16,10 +16,8 @@
             :rules="loginRules"
             type="login">
             <template #button>
-              <div class="flex items-center justify-center gap-4 mt-5">
-                <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
-                <span class="text-base">|</span>
-                <span class="other" @click="actions.handleChange(true)">會員註冊</span>
+              <div class="flex items-center justify-end gap-4 mt-5">
+                <Anchor text="會員註冊" @click="actions.handleChange(true)" />
               </div>
             </template>
           </FormLogin>
@@ -33,12 +31,10 @@
             :rules="registRules"
             type="register">
             <template #button>
-              <div class="flex items-center justify-center gap-4 mt-5">
-                <span class="other" @click="router.push({ name: 'home' })">網站首頁</span>
+              <div class="flex items-center justify-end gap-4 mt-5">
+                <Anchor text="找回密碼" to="/" />
                 <span class="text-base">|</span>
-                <span class="other">找回密碼</span>
-                <span class="text-base">|</span>
-                <span class="other" @click="actions.handleChange(false)">帳號登入</span>
+                <Anchor text="帳號登入" @click="actions.handleChange(false)" />
               </div>
             </template>
           </FormLogin>
@@ -122,9 +118,9 @@ const registRules = reactive<FormRules>({
 const actions = {
   handleChange: (type: boolean) => {
     if (state.isSigin) {
-      router.push({ name: 'regist' })
-    } else {
       router.push({ name: 'login' })
+    } else {
+      router.push({ name: 'regist' })
     }
     state.isSigin = type
   },
@@ -133,7 +129,7 @@ const actions = {
 
 <style scoped lang="scss">
 section {
-  @apply flex justify-center items-center h-screen overflow-hidden;
+  @apply flex h-screen items-center justify-center overflow-hidden;
   background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
 
   .color {
@@ -141,18 +137,18 @@ section {
     filter: blur(150px);
 
     &:nth-child(1) {
-      @apply top-[-300px] w-[60%] h-[600px];
-      background: #ff359b;
+      @apply top-[-300px] h-[600px] w-[60%];
+      background: #c9dbb2;
     }
 
     &:nth-child(2) {
-      @apply bottom-[50px] left-[100px] w-[70%] h-[400px];
-      background: #fffd87;
+      @apply bottom-[50px] left-[100px] h-[400px] w-[70%];
+      background: #e3f2c1;
     }
 
     &:nth-child(3) {
-      @apply bottom-[200px] right-[200px] w-[50%] h-[300px];
-      background: #00d2ff;
+      @apply bottom-[200px] right-[200px] h-[300px] w-[50%];
+      background: #f6ffde;
     }
   }
 
@@ -171,23 +167,23 @@ section {
       animation-delay: calc(-1s * var(--i));
 
       &:nth-child(1) {
-        @apply top-[-50x] right-[-60px] w-[100px] h-[100px];
+        @apply right-[-60px] top-[-50x] h-[100px] w-[100px];
       }
 
       &:nth-child(2) {
-        @apply top-[150px] left-[-100px] w-[120px] h-[120px] z-[2];
+        @apply left-[-100px] top-[150px] z-[2] h-[120px] w-[120px];
       }
 
       &:nth-child(3) {
-        @apply bottom-[50px] right-[-60px] w-[80px] h-[80px] z-[2];
+        @apply bottom-[50px] right-[-60px] z-[2] h-[80px] w-[80px];
       }
 
       &:nth-child(4) {
-        @apply top-[450px] left-[80px] w-[50px] h-[50px];
+        @apply left-[80px] top-[450px] h-[50px] w-[50px];
       }
 
       &:nth-child(5) {
-        @apply top-[-80px] left-[140px] w-[60px] h-[60px];
+        @apply left-[140px] top-[-80px] h-[60px] w-[60px];
       }
     }
     .form-container {
@@ -195,7 +191,7 @@ section {
       position: relative;
 
       .container {
-        @apply relative w-[100%] md:w-[400px] min-h-[400px] rounded-[10px] flex justify-center items-center;
+        @apply relative flex min-h-[400px] w-[100%] items-center justify-center rounded-[10px] md:w-[400px];
         background: rgba(255, 255, 255, 0.1);
         box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.5);
@@ -206,10 +202,6 @@ section {
         visibility: visible;
         transform: rotateY(0deg);
         transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-
-        .other {
-          @apply text-sm text-gray-600 hover:text-orange-300 hover:font-bold cursor-pointer;
-        }
 
         &.sigin {
           transform: rotateY(-180deg);

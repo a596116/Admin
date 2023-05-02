@@ -35,7 +35,8 @@ export default class Axios {
       (config: AxiosRequestConfig) => {
         this.loading.push(ElLoading.service({
           text: '加載中...',
-          background: 'rgba(0,0,0,0.5)',
+          background: 'rgba(0,0,0,0.4)',
+          customClass: 'animate__animated animate__bounce'
         }))
         useErrorStore().resetError()
         config.headers = {

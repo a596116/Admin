@@ -19,7 +19,8 @@
     "vite/**/*.ts",
     "types/**/*.d.ts",
     "types/**/*.ts",
-    "types/components.d.ts"
+    "types/components.d.ts",
+    "src/**/*.json"
   ],
   "compilerOptions": {
     "baseUrl": ".",
@@ -28,7 +29,9 @@
       "#/*": ["./src/assets/*"]
     },
     "composite": true,
-    "types": ["node"]
+    "types": ["node"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true
     // "module": "es2022"
   },
   "types": ["element-plus/global", "lodash-es"]

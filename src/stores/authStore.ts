@@ -85,9 +85,9 @@ export const useAuthStore = defineStore('auth', () => {
     permissionList.forEach((r) => {
       if (router.hasRoute(r.name!)) router.removeRoute(r.name!)
     })
+    router.push('/login')
     storage.removeAll()
     user.value = null
-    router.push('/')
     ElMessage.success('退出登入')
   }
 
