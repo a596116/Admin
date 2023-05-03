@@ -7,7 +7,6 @@ import { CacheEnum } from '@/enum/cacheEnum'
 export const useMenuStore = defineStore('menu', () => {
   const menus = ref<IMenu[]>([])
   const historyMenus = ref<IMenu[]>([])
-  const route = ref<RouteMeta | null>(null)
   const isMenuCollapse = ref<boolean>(false)
   const isHistoryCollapse = ref<boolean>(false)
   const isBreadcrumbCollapse = ref<boolean>(false)
@@ -30,7 +29,6 @@ export const useMenuStore = defineStore('menu', () => {
   const addHistoryMenu = (r: RouteLocationNormalized) => {
     if (!r.meta?.menu) return
     if (!isHistoryCollapse.value) return
-    route.value = r.meta
     const menu: IMenu = { ...r.meta?.menu, route: r.name as string }
     const index = Object.entries(historyMenus.value!).findIndex(([key, value]) => value.route === r.name)
     if (index !== -1) historyMenus.value.splice(index, 1)
@@ -86,6 +84,10 @@ export const useMenuStore = defineStore('menu', () => {
   }
 
 
-  return { menus, historyMenus, route, isMenuCollapse, isHistoryCollapse, isBreadcrumbCollapse, init, addHistoryMenu, removeHistoryMenu, toggleMenu, toggleHistoryLink, toggleBreadcrumb }
+  return { menus, historyMenus, isMenuCollapse, isHistoryCollapse, isBreadcrumbCollapse, init, addHistoryMenu, removeHistoryMenu, toggleMenu, toggleHistoryLink, toggleBreadcrumb }
 },
-  { persist: true })
+  {
+    persist: {
+      paths: ['isMenuCollapse', 'isHistoryCollapse', 'isBreadcrumbCollapse', 'historyMenus'],
+    }
+  })

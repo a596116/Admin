@@ -1,4 +1,4 @@
-import authApi, { type ILoginUser, type IRegisterUser } from '@/apis/authApi'
+import type { ILoginUser, IRegisterUser } from '@/apis/authApi'
 import { defineStore } from 'pinia'
 import { permissionList } from '@/router/autoImport'
 import router from '@/router'
@@ -13,7 +13,7 @@ export const useAuthStore = defineStore('auth', () => {
    */
   const getUser = async () => {
     return new Promise(async (resolve) => {
-      await authApi.info()
+      await api.authApi.info()
         .then((res) => {
           if (res.code == 20000) {
             user.value = res.data
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', () => {
       phone: loginForm.phone,
       password: loginForm.password
     }
-    await authApi.login(auth)
+    await api.authApi.login(auth)
       .then(async (res) => {
         if (res.code == 20000) {
           storage.set(CacheEnum.TOKEN_NAME, res.data.token)
@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const registUser = async (userForm: IRegisterUser) => {
-    await authApi.regist(userForm)
+    await api.authApi.regist(userForm)
       .then(res => {
         if (res.code == 20000) {
           login(userForm)

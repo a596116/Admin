@@ -6,7 +6,11 @@
     "lib": [],
     "types": ["node", "jsdom"],
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "#/*": ["./src/assets/*"]
+    }
   },
   "include": [
     "types/module.d.ts",
@@ -15,6 +19,8 @@
     "vite.config.ts",
     "vite/**/*.ts",
     "types/**/*.d.ts",
-    "types/**/*.ts"
+    "types/**/*.ts",
+    "types/components.d.ts",
+    "src/**/*.json"
   ]
 }

@@ -10,11 +10,9 @@ export const autoImport = (plugin: Plugin[]) => {
             resolvers: [ElementPlusResolver()],
             imports: ['vue', 'vue-router', 'pinia', '@vueuse/core',
                 {
-                    '@/utils': [
-                        'env',
-                        'storage'
-                        // ['env', 'myenv'] // import { env as myenv } from '@/utils',
-                    ],
+                    '@/utils': ['env', 'storage'],
+                    '@/apis': ['api'],
+                    '@/utils/messageBox': ['mesBox'],
                     // 'axios': [
                     //     // default imports
                     //     ['default', 'axios'], // import { default as axios } from 'axios',

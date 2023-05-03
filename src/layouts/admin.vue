@@ -18,7 +18,7 @@
               :class="{ 'md:hidden': !menuStore.isHistoryCollapse }" />
           </div>
 
-          <div class="relative m-3 overflow-y-auto main">
+          <div class="main relative m-8 overflow-y-auto">
             <router-view #default="{ Component, route }">
               <Transition
                 appear

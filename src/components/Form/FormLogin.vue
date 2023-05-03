@@ -12,7 +12,7 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
-        <div v-else class="flex items-center justify-center w-full">
+        <div v-else class="flex w-full items-center justify-center">
           <el-input
             v-model.trim="model[f.name]"
             :placeholder="f.placeholder"
@@ -39,7 +39,6 @@
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
 import { useAuthStore } from '@/stores/authStore'
-import authApi from '@/apis/authApi'
 
 const props = defineProps<{
   fields: formColumnsType[]
@@ -60,7 +59,7 @@ onMounted(() => {
  */
 const getNewCaptcha = (id?: string) => {
   props.model.captcha = ''
-  authApi.captcha(id).then((res) => {
+  api.authApi.captcha(id).then((res) => {
     captcha.value = res.data
   })
 }
@@ -86,7 +85,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           captcha: props.model.captcha,
           id: captcha.value.id,
         }
-        authApi.verify(cap).then((res) => {
+        api.authApi.verify(cap).then((res) => {
           if (res.code === 20000) {
             authStore.registUser(props.model).then(() => {})
           }

@@ -69,7 +69,7 @@ watch(
 .admin-menu {
   transition: width 0.3s ease-in-out;
   z-index: 200;
-  @apply min-h-screen max-w-[130px] overflow-hidden border-0 bg-hd-Bg md:max-w-[200px];
+  @apply min-h-screen max-w-[130px] overflow-hidden border-0 bg-hd-Bg p-4 md:max-w-[250px];
 
   * {
     @apply bg-hd-Bg;
@@ -87,8 +87,9 @@ watch(
     transition: 0.3s ease-in-out !important;
   }
 
-  &:hover {
-    @apply bg-white shadow-sm;
+  &:hover,
+  &.is-active {
+    @apply bg-white shadow-md;
     span,
     svg,
     * {
@@ -112,7 +113,7 @@ watch(
 
 @media (min-width: 768px) {
   .admin-menu.el-menu--collapse {
-    width: 64px;
+    width: 90px;
   }
 }
 </style>

@@ -16,6 +16,5 @@
   "trailingComma": "all",
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
-  "singleAttributePerLine": false,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "singleAttributePerLine": false
 }
