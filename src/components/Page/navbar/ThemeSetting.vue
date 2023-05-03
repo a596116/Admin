@@ -3,7 +3,7 @@
     <el-tooltip effect="dark" content="主題" placement="bottom-end">
       <svg-icon
         name="setting"
-        class="h-6 w-6 cursor-pointer duration-200 hover:-translate-y-1"
+        class="w-6 h-6 duration-200 cursor-pointer hover:-translate-y-1 hover:text-hd-HoverColor"
         @click="themeSettingDrawer = true"></svg-icon>
     </el-tooltip>
     <el-drawer v-model="themeSettingDrawer" title="Theme Setting" :with-header="false" :size="300">
@@ -16,7 +16,7 @@
             :predefine="themeColorList"
             @active-change="changeThemeColor" />
         </div> -->
-        <div class="my-5 hidden md:block">
+        <div class="hidden my-5 md:block">
           <span class="mx-3">麵包屑</span>
           <el-switch
             v-model="menuStore.isBreadcrumbCollapse"
@@ -27,7 +27,7 @@
             @change="menuStore.toggleBreadcrumb"
             size="large" />
         </div>
-        <div class="my-5 hidden md:block">
+        <div class="hidden my-5 md:block">
           <span class="mx-3">歷史紀錄</span>
           <el-switch
             v-model="menuStore.isHistoryCollapse"

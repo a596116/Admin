@@ -19,6 +19,7 @@ module.exports = {
           ClickColor: 'var(--hd-click-color)',
           Yellow: 'var(--hd-yellow)',
           Bg: 'var(--hd-bg)',
+          'Bg-1': 'var(--hd-bg-1)',
         },
       },
       animation: {

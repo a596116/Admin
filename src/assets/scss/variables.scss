@@ -3,6 +3,7 @@
 @use './custom/form.scss' as *;
 @use './custom/input.scss' as *;
 @use './custom/messageBox.scss' as *;
+@use './custom/dropDown.scss' as *;
 
 @import './custom/button.scss';
 $colors: (
@@ -27,6 +28,16 @@ $colors: (
 );
 
 :root {
+  --hd-color: #bfccb5;
+  --hd-hover-color: #c9dbb2;
+  --hd-click-color: #aac8a7;
+  --hd-text: #3c486b;
+  --hd-hover-text: #2c344f;
+  --hd-yellow: #ffeeb3;
+  --hd-bg: #f8f9fa;
+  --hd-bg-1: #f4eee0;
+  --hd-disable: #e9edc9;
+
   // 變更 element plus 主色
   --el-color-primary: #bfccb5 !important;
   --blue-primary-50: #f8fbff !important;
@@ -48,6 +59,8 @@ $colors: (
   --primary-text-color: #252525 !important;
   --form-editable-bg: #f5f7fa !important;
   --el-disabled-bg-color: #ececec !important;
+  --el-menu-hover-bg-color: none !important;
+  --el-menu-hover-text-color: #c9dbb2 !important;
 }
 
 .center {

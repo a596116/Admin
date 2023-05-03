@@ -1,17 +1,6 @@
 @import 'variables';
 
 @import 'animate';
-/* color palette from <https://github.com/vuejs/theme> */
-:root {
-  --hd-color: #bfccb5;
-  --hd-hover-color: #c9dbb2;
-  --hd-click-color: #aac8a7;
-  --hd-text: #3c486b;
-  --hd-hover-text: #2c344f;
-  --hd-yellow: #ffeeb3;
-  --hd-bg: #f8f9fa;
-  --hd-disable: #e9edc9;
-}
 
 *,
 *::before,
@@ -25,7 +14,7 @@
 
 body {
   min-height: 100vh;
-  color: var(--hd-text);
+  // color: var(--hd-text);
   background: var(--hd-bg);
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;

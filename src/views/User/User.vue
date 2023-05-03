@@ -24,6 +24,14 @@
         {{ item }}
       </el-tag>
     </template>
+    <!-- 註冊日期 -->
+    <template #createdAt="scope">
+      {{ dayjs(scope.row.createdAt).format('YYYY-MM-DD') }}
+    </template>
+    <!-- 頭像 -->
+    <template #avatar="scope">
+      <el-image :src="scope.row.avatar && '/logo.png'" fit="cover" class="max-w-[70px]"></el-image>
+    </template>
     <!-- action -->
     <template #action="scope">
       <!-- 編輯 -->
@@ -76,7 +84,7 @@ const actions = {
         { label: '手機號', prop: 'phone', width: 120 },
         { label: '狀態', prop: 'active', formatter: true, width: 80 },
         { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
-        { label: '頭像', prop: 'avatar', formatter: true },
+        { label: '頭像', prop: 'avatar', formatter: true, align: 'center' },
         { label: '註冊日期', prop: 'createdAt' },
       ]
       const { data, message } = result

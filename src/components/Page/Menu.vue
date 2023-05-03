@@ -1,24 +1,20 @@
 <template>
   <el-menu
-    :collapse="menuStore.isMenuCollapse"
+    :collapse="!menuStore.isMenuCollapse"
     :default-active="active_menu"
+    mode="horizontal"
     class="admin-menu"
     :unique-opened="true">
-    <div class="flex h-[70px] w-full items-center justify-center px-2 py-3">
+    <div class="flex w-[170px] items-center justify-center px-2 cursor-pointer">
       <svg-icon
-        :name="menuStore.isMenuCollapse ? 'logo1' : 'logo'"
+        :name="!menuStore.isMenuCollapse ? 'logo1' : 'logo'"
         class="h-[45px] w-full"
         @click="router.push({ name: 'admin/home' })"></svg-icon>
     </div>
 
-    <div class="mt-4" v-for="(menu, index) in menuStore.menus" :key="index">
+    <div class="mr-2" v-for="(menu, index) in menuStore.menus" :key="index">
       <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title!">
-        <template #title>
-          <section class="hidden bg-transparent md:block">
-            <svg-icon :name="menu.icon" class="h-6 w-6"></svg-icon>
-          </section>
-          <span class="m-4 md:m-7">{{ menu.title }}</span>
-        </template>
+        <span class="m-4 md:m-5">{{ menu.title }}</span>
 
         <el-menu-item
           v-for="(cmenu, index) in menu.children"
@@ -33,10 +29,7 @@
         v-else
         :index="menu.children[0]?.route?.split('/')[1]"
         @click="handle(menu, menu.children![0])">
-        <section class="hidden bg-transparent md:block">
-          <svg-icon :name="menu.icon" class="h-6 w-6"></svg-icon>
-        </section>
-        <span class="m-4 md:m-8">{{ menu.children[0].title }}</span>
+        {{ menu.children[0].title }}
       </el-menu-item>
     </div>
   </el-menu>
@@ -59,7 +52,7 @@ const handle = (pmenu: IMenu, cmenu?: IMenu) => {
 watch(
   route,
   () => {
-    active_menu.value = route.path.split('/')[2]
+    active_menu.value = route.path.split('/')[1]
   },
   { immediate: true },
 )
@@ -68,39 +61,36 @@ watch(
 <style scoped lang="scss">
 .admin-menu {
   transition: width 0.3s ease-in-out;
-  z-index: 200;
-  @apply min-h-screen max-w-[130px] overflow-hidden border-0 bg-hd-Bg p-4 md:max-w-[250px];
-
+  @apply border-0 bg-hd-Bg-1;
   * {
-    @apply bg-hd-Bg;
+    @apply bg-hd-Bg-1;
   }
 }
 // Menu
-.el-sub-menu__title,
-.el-menu-item {
+:deep(.el-sub-menu__title),
+:deep(.el-menu-item) {
   @apply rounded-lg;
   span,
   svg {
     background-color: transparent !important;
-    color: var(--hd-text);
+    // color: var(--hd-text);
     letter-spacing: 8px;
     transition: 0.3s ease-in-out !important;
   }
 
   &:hover,
   &.is-active {
-    @apply bg-white shadow-md;
+    @apply text-hd-HoverColor;
     span,
     svg,
     * {
-      color: var(--hd-hover-text) !important;
-      @apply text-hd-HoverText;
+      @apply text-hd-HoverColor;
     }
   }
 }
 
 .is-active .el-sub-menu__title * {
-  color: var(--hd-color) !important;
+  color: var(--hd-hover-color) !important;
 }
 
 .form-container input::placeholder {
@@ -109,11 +99,5 @@ watch(
 
 .el-menu.el-menu--collapse {
   @apply w-0;
-}
-
-@media (min-width: 768px) {
-  .admin-menu.el-menu--collapse {
-    width: 90px;
-  }
 }
 </style>

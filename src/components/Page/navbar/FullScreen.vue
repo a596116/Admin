@@ -3,9 +3,9 @@
     <el-tooltip effect="dark" content="全螢幕" placement="bottom-end">
       <div
         @click="fullScreen"
-        class="hidden cursor-pointer duration-200 hover:-translate-y-1 md:block">
-        <svg-icon name="full-exit" v-if="isFullScreen" class="h-8 w-8"></svg-icon>
-        <svg-icon name="full" v-else class="h-8 w-8"></svg-icon>
+        class="hidden duration-200 cursor-pointer hover:-translate-y-1 md:block hover:text-hd-HoverColor">
+        <svg-icon name="full-exit" v-if="isFullScreen" class="w-8 h-8"></svg-icon>
+        <svg-icon name="full" v-else class="w-8 h-8"></svg-icon>
       </div>
     </el-tooltip>
   </div>

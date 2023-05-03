@@ -4,7 +4,7 @@ export const routes = [
     {
         path: '/',
         name: 'admin',
-        redirect: '/admin',
+        redirect: '/home',
         component: () => import('@/layouts/admin.vue'),
 
     },

@@ -11,7 +11,7 @@ export default {
   children: [
     {
       name: 'admin/home',
-      path: '/admin',
+      path: '/home',
       component: () => import('@/views/Dashboard.vue'),
       meta: {
         menu: { title: '首頁' }
