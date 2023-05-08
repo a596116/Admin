@@ -4,14 +4,13 @@ export function tableStyle(props?: any) {
       header: () => {
         return {
           letterSpacing: '.4em',
-          backgroundColor: '#f8f9fa',
-          // borderBottom: '1px solid #3c486b',
+          backgroundColor: '#ebf0f3',
           fontWeight: 500,
         }
       },
       row: () => {
         return {
-          backgroundColor: '#f8f9fa',
+          backgroundColor: '#ebf0f3',
           fontSize: '14px',
           height: '60px',
         }

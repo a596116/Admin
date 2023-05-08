@@ -26,11 +26,11 @@ export interface IAlterUserPassword {
   newPassword: string
 }
 
-class userApi {
+class authApi {
   // 用戶資訊
-  info() {
+  info(userId: number) {
     return http.request<IUser>({
-      url: `data/user/info?phone=${storage.get(CacheEnum.USER_NAME)}`,
+      url: `auth/${userId ?? 0}`,
     })
   }
   /**
@@ -49,9 +49,9 @@ class userApi {
    */
   regist(userForm: IRegisterUser) {
     return http.request({
-      url: 'auth/regist',
+      url: 'auth/register',
       method: 'post',
-      data: { ...userForm, active: '1', avatar: '0', permissions: ['user'] }
+      data: { ...userForm, status: true, avatar: '0' }
     })
   }
 
@@ -115,4 +115,4 @@ class userApi {
 
 }
 
-export default new userApi()
+export default new authApi()

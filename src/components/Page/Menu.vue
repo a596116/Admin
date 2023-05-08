@@ -5,11 +5,11 @@
     mode="horizontal"
     class="admin-menu"
     :unique-opened="true">
-    <div class="flex w-[170px] items-center justify-center px-2 cursor-pointer">
+    <div class="flex w-[120px] ml-6 items-center justify-center px-2 cursor-pointer">
       <svg-icon
-        :name="!menuStore.isMenuCollapse ? 'logo1' : 'logo'"
+        name="logo"
         class="h-[45px] w-full"
-        @click="router.push({ name: 'admin/home' })"></svg-icon>
+        @click="router.push({ name: 'admin' })"></svg-icon>
     </div>
 
     <div class="mr-2" v-for="(menu, index) in menuStore.menus" :key="index">

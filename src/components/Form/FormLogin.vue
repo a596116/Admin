@@ -12,7 +12,7 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
-        <div v-else class="flex w-full items-center justify-center">
+        <div v-else class="flex items-center justify-center w-full">
           <el-input
             v-model.trim="model[f.name]"
             :placeholder="f.placeholder"
@@ -86,7 +86,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
           id: captcha.value.id,
         }
         api.authApi.verify(cap).then((res) => {
-          if (res.code === 20000) {
+          if (res.code === 200) {
             authStore.registUser(props.model).then(() => {})
           }
         })

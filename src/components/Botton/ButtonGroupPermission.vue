@@ -23,5 +23,5 @@
 // ----------- emit -----------
 const emit = defineEmits(['on-command'])
 
-const permissionButtons = [{ icon: 'delete', tag: 'admin', title: '刪除' }]
+const permissionButtons = [{ icon: 'delete', tag: 'delete', title: '刪除' }]
 </script>

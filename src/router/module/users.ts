@@ -14,7 +14,7 @@ export default {
       path: 'user/:id?',
       component: () => import('@/views/User/User.vue'),
       meta: {
-        menu: { title: '用戶', }, permission: 'admin', number: 2
+        menu: { title: '用戶', }, permission: 'create', number: 2
       },
       props: (route) => ({ id: route.params.id || 1 })
     },
@@ -23,7 +23,7 @@ export default {
       path: 'user/edit/:id?',
       component: () => import('@/views/User/UserManage.vue'),
       meta: {
-        permission: 'admin', number: 2
+        permission: '超級用戶', number: 2
       },
     },
   ],

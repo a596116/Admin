@@ -8,12 +8,10 @@ class userApi {
   /**
    * @description: 獲取用戶列表
    */
-  fetchAll(page = 1, query?: any) {
-    const p = page || 1
-    return http.request<Data<IUser>>({
-      method: 'post',
-      url: `data/user/${p}`,
-      data: { ...query }
+  fetchAll(query: any) {
+    return http.request<IUser[]>({
+      url: `auth`,
+      params: query,
     })
   }
 

@@ -1,5 +1,5 @@
 $hoverBg: #c9dbb2;
-$rowBg: #f8f9fa;
+$rowBg: #ebf0f3;
 $darkColor: #252525;
 
 .el-table .sort-caret.ascending {
@@ -12,9 +12,12 @@ $darkColor: #252525;
 
 .default-table {
   --el-border-color-lighter: transparent;
-  --el-table-bg-color: var(--hd-bg);
+  --el-table-bg-color: $rowBg;
   .el-table__header-wrapper {
     border-bottom: 1px solid var(--hd-text);
+  }
+  .el-table-fixed-column--right {
+    // --el-bg-color: $rowBg;
   }
 }
 
@@ -34,7 +37,7 @@ $darkColor: #252525;
 }
 
 .default-table.el-table .row-bg {
-  --el-table-tr-bg-color: var(--table-row-bg);
+  --el-table-tr-bg-color: $rowBg;
 
   // fixed right
   td.el-table-fixed-column--right {

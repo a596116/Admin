@@ -1,10 +1,14 @@
 <template>
-  <div>
+  <div class="">
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ name: 'admin/home' }">首頁</el-breadcrumb-item>
-      <el-breadcrumb-item>{{ menuStore.route?.menu?.title }}</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ name: 'admin/home' }">
+        <svg-icon name="home" class="w-4 h-4" />
+      </el-breadcrumb-item>
+      <el-breadcrumb-item v-if="menuStore.route?.menu?.title !== '首頁'">{{
+        menuStore.route?.menu?.title
+      }}</el-breadcrumb-item>
       <!-- <template v-if="menuStore.route">
-        <el-breadcrumb-item v-for="(r, index) in menuStore.route.matched" :key="index">
+        <el-breadcrumb-item v-for="(r, index) in menuStore.route.menu" :key="index">
           {{ r.meta.menu?.title }}
         </el-breadcrumb-item>
       </template> -->
@@ -17,16 +21,19 @@ import { useMenuStore } from '@/stores/menuStore'
 const menuStore = useMenuStore()
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .el-breadcrumb__inner {
-  color: var(--hd-black1) !important;
+  color: var(--hd-text) !important;
 }
 
 .el-breadcrumb__inner.is-link {
-  color: var(--hd-black2) !important;
+  color: var(--hd-hover-text) !important;
 }
 
 .el-breadcrumb__inner.is-link:hover {
-  color: var(--hd-theme-color) !important;
+  color: var(--hd-hover-color) !important;
+}
+:deep(.el-breadcrumb__item) {
+  height: 24px !important;
 }
 </style>

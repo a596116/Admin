@@ -57,12 +57,13 @@ import { useRoute } from 'vue-router'
 
 const emit = defineEmits(['on-submit'])
 const props = defineProps({
-  type: { type: String, default: 'print' },
+  type: { type: String, default: 'edit' },
   size: { type: String, default: '' },
   loading: { type: Boolean, default: false },
   hasValid: { type: Boolean, default: true },
   isDisabled: { type: Boolean, default: false },
 })
+
 const route = useRoute()
 const buttonMap = {
   print: {
@@ -85,13 +86,13 @@ const buttonMap = {
   },
   edit: {
     content: '編輯',
-    tag: 'admin',
+    tag: 'edit',
     defaultSize: 'small',
     icon: 'edit',
   },
   delete: {
-    content: '',
-    tag: 'admin',
+    content: '刪除',
+    tag: 'delete',
     defaultSize: 'small',
     icon: 'delete',
   },

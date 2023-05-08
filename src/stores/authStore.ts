@@ -7,16 +7,18 @@ import { ElMessage } from 'element-plus'
 
 export const useAuthStore = defineStore('auth', () => {
   const user = ref<null | IUser>(null)
+  const userId = ref<number>()
 
   /**
    * @description: 獲取用戶資訊 
    */
   const getUser = async () => {
     return new Promise(async (resolve) => {
-      await api.authApi.info()
-        .then((res) => {
-          if (res.code == 20000) {
+      await api.authApi.info(userId.value!)
+        .then(async (res) => {
+          if (res.code == 200) {
             user.value = res.data
+            await permissionlist()
             resolve(res)
           } else {
             console.log('未獲取到用戶資訊')
@@ -24,7 +26,8 @@ export const useAuthStore = defineStore('auth', () => {
             resolve(res)
           }
         })
-        .catch(() => {
+        .catch((err) => {
+          console.log(err)
           storage.removeAll()
           resolve(null)
         })
@@ -35,12 +38,18 @@ export const useAuthStore = defineStore('auth', () => {
    * @description: 添加需權限的路由
    */
   const permissionlist = async () => {
-    await getUser()
     permissionList.forEach((r) => {
-      if (user.value?.permissions?.includes(r.meta?.permission!)) {
+      if (getUserPermission().includes(r.meta?.permission!)) {
         router.addRoute(r.meta!.page!.name, r)
       }
     })
+  }
+
+  /**
+   * @description: 獲取用戶權限
+   */
+  const getUserPermission = () => {
+    return user.value?.UserRole[0].role.permissions.map((p) => p.name) || []
   }
 
   const login = async (loginForm: ILoginUser) => {
@@ -50,16 +59,16 @@ export const useAuthStore = defineStore('auth', () => {
     }
     await api.authApi.login(auth)
       .then(async (res) => {
-        if (res.code == 20000) {
+        if (res.code == 200) {
           storage.set(CacheEnum.TOKEN_NAME, res.data.token)
-          storage.set(CacheEnum.USER_NAME, res.data.userPhone)
-          const routeName = storage.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
-          await permissionlist()
-          if (user.value?.active === '1') { //檢查用戶狀態
+          userId.value = res.data.userId
+          const routeName = storage.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'admin'
+          await getUser()
+          if (user.value?.status) { //檢查用戶狀態
             router.push({ name: routeName })
-            ElMessage.success(`歡迎${user.value?.name}`)
+            ElMessage.success(`歡迎 ${user.value?.name}`)
           } else {
-            storage.remove(CacheEnum.TOKEN_NAME, CacheEnum.USER_NAME)
+            // storage.remove(CacheEnum.TOKEN_NAME)
             ElMessage.error('您以被停權，請聯繫管理員')
           }
         } else {
@@ -75,7 +84,7 @@ export const useAuthStore = defineStore('auth', () => {
   const registUser = async (userForm: IRegisterUser) => {
     await api.authApi.regist(userForm)
       .then(res => {
-        if (res.code == 20000) {
+        if (res.code == 200) {
           login(userForm)
         }
       })
@@ -92,5 +101,9 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
 
-  return { user, getUser, login, registUser, logout }
-}, { persist: true })
+  return { userId, user, getUser, login, registUser, logout, getUserPermission }
+}, {
+  persist: {
+    paths: ['userId'],
+  }
+})

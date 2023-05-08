@@ -10,15 +10,16 @@
         class="mask md:hidden"
         @click="closeMenu"
         :class="{ close: !menuStore.isMenuCollapse }"></div>
-      <div class="content grid w-full grid-rows-[auto_1fr] bg-hd-Bg">
-        <div class="p-4">
+      <div
+        class="content grid w-full grid-rows-[auto_1fr] bg-[url('@/assets/img/bg.png')] bg-cover bg-no-repeat">
+        <div class="bg-transparent">
           <NavBar />
           <!-- <HistoryLink
             class="hidden md:block"
             :class="{ 'md:hidden': !menuStore.isHistoryCollapse }" /> -->
         </div>
 
-        <div class="relative m-8 overflow-y-auto main">
+        <div class="relative m-6 overflow-y-auto main mt-[125px] bg-hd-Bg-1 rounded-lg shadow-lg">
           <router-view #default="{ Component, route }">
             <Transition
               appear
@@ -42,7 +43,7 @@ const menuStore = useMenuStore()
 menuStore.init('admin')
 watch(
   route,
-  async () => {
+  () => {
     menuStore.addHistoryMenu(route)
   },
   { immediate: true },

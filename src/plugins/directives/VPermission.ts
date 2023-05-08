@@ -5,7 +5,7 @@ export default {
     const authStore = useAuthStore()
     const currentTag = binding.value.currentTag
     const effect = binding.value.effect
-    const currentRight = authStore.user?.permissions || []
+    const currentRight = authStore.getUserPermission()
     let item = currentRight.filter((item) => {
       return item === currentTag
     })

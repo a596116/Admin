@@ -75,9 +75,9 @@ const state = reactive({
           password: '123456',
         } as ILoginUser),
   regiserForm: {
-    phone: '',
-    password: '',
-    name: '',
+    phone: '0988640301',
+    password: '123456',
+    name: 'haodai',
   } as IRegisterUser,
 })
 

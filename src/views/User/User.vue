@@ -1,47 +1,21 @@
 <template>
   <DefaultTable
     ref="refTable"
+    class="p-4"
     v-model:table-data="state.table"
     :columns="state.table.columns"
-    search-placeholder="沖帳單號/票據單號/票據號碼"
-    :action-buttons="[]">
-    <!-- 狀態 -->
-    <template #active="scope">
-      <el-tag
-        class="mx-1 !border-0"
-        :color="scope.row.active == 1 ? '#bfccb5' : '#e9edc9'"
-        effect="dark">
-        {{ scope.row.active == 1 ? '啟用' : '停用' }}
-      </el-tag>
-    </template>
+    search-placeholder="搜尋用戶"
+    label-text-date-range="註冊日期"
+    :action-buttons="['search-date-range']"
+    :row-buttons="['edit', 'delete']"
+    @on-change="actions.handleFetchAll"
+    @search-keyword="actions.handleFetchAll(false)"
+    @on-row-action-command="actions.handleRowActionCommand">
     <!-- 權限 -->
     <template #permissions="scope">
-      <el-tag
-        v-for="(item, index) of scope.row.permissions"
-        :key="index"
-        class="mx-1 !border-0"
-        effect="dark">
-        {{ item }}
+      <el-tag class="mx-1 !border-0" effect="plain">
+        {{ scope.row.UserRole[0].role.name }}
       </el-tag>
-    </template>
-    <!-- 註冊日期 -->
-    <template #createdAt="scope">
-      {{ dayjs(scope.row.createdAt).format('YYYY-MM-DD') }}
-    </template>
-    <!-- 頭像 -->
-    <template #avatar="scope">
-      <el-image :src="scope.row.avatar && '/logo.png'" fit="cover" class="max-w-[70px]"></el-image>
-    </template>
-    <!-- action -->
-    <template #action="scope">
-      <!-- 編輯 -->
-      <ButtonTipPermission
-        type="edit"
-        @on-submit="actions.handleRoutePush(`edit/${scope.row.id}`)" />
-      <!-- 刪除 -->
-      <ButtonTipPermission
-        type="delete"
-        @on-submit="actions.handleDeleteConfirm(scope.row.id, scope.row.number)" />
     </template>
   </DefaultTable>
 </template>
@@ -56,16 +30,13 @@ const state = reactive({
     data: <IUser[]>[],
     columns: <TableColumns[]>[],
     current: 1,
-    take: 20,
+    take: 2,
     total: 1,
-    sort: 'updated_at-desc',
+    sort: 'created_at-desc',
     message: '',
     search_params: {
       start_date: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
       end_date: dayjs().format('YYYY-MM-DD'),
-      start_account_date: null,
-      end_account_date: null,
-      currency_exchange_id: null,
       q: null,
     },
   },
@@ -77,22 +48,26 @@ onMounted(() => {
 const actions = {
   handleFetchAll: (showLoading = true) => {
     const { current: page, take, sort, search_params } = state.table
-    const params = { page }
-    api.userApi.fetchAll(page).then((result) => {
+    const params = { page, take, sort, ...search_params }
+    api.userApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
         { label: '名稱', prop: 'name', align: 'center' },
         { label: '手機號', prop: 'phone', width: 120 },
-        { label: '狀態', prop: 'active', formatter: true, width: 80 },
+        { label: '狀態', prop: 'status', width: 80, type: 'status' },
         { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
-        { label: '頭像', prop: 'avatar', formatter: true, align: 'center' },
-        { label: '註冊日期', prop: 'createdAt' },
+        { label: '頭像', prop: 'avatar', align: 'center', type: 'image' },
+        { label: '註冊日期', prop: 'created_at', type: 'date' },
       ]
-      const { data, message } = result
+      const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result
       state.table = {
-        ...state.table,
-        data: data.rows,
-        message,
+        data,
         columns,
+        total,
+        take: Number(take),
+        current: Number(current),
+        sort,
+        search_params,
+        message,
       }
     })
   },
@@ -108,17 +83,27 @@ const actions = {
   /*
    * @description: 刪除
    */
-  handleDeleteConfirm: (id: number, number: number) => {
+  handleDeleteConfirm: (id: string) => {
     mesBox
       .question({
-        title: `刪除應收沖帳?`,
-        subTitle: `確定要刪除 ${number} 嗎?`,
+        title: `刪除用戶?`,
+        subTitle: `確定要刪除 ${id} 嗎?`,
         showCancelButton: true,
       })
       .then(() => {
         // actions.handleDelete(id, number)
       })
       .catch(() => {})
+  },
+  handleRowActionCommand: (row: IUser, command: string) => {
+    switch (command) {
+      case 'edit':
+        actions.handleRoutePush(`edit/${row.id}`)
+        break
+      case 'delete':
+        actions.handleDeleteConfirm(row.id)
+        break
+    }
   },
 }
 </script>

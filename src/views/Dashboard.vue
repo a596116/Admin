@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-full w-full items-center justify-center">
+  <div class="flex items-center justify-center w-full h-full">
     <Vue3Lottie :animation-data="DashBoard" height="100%" width="100%" class="block" />
   </div>
 </template>

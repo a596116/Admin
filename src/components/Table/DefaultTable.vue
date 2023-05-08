@@ -9,19 +9,17 @@
       </div>
     </section> -->
     <!-- 關鍵字、日期搜尋 -->
-    <!-- <section v-if="formatShowHeader" class="flex justify-between pb-3 border-b">
+    <section v-if="formatShowHeader" class="flex justify-between pb-3 border-b">
       <section class="flex flex-col items-center gap-3 lg:flex-row">
-        <div class="w-full lg:w-fit lg:min-w-[300px]">
-          <h5 class="text-xs leading-6 tracking-widest text-custom-gray">
-            關鍵字搜尋
-          </h5>
+        <div class="w-full lg:w-fit lg:min-w-[300px] px-4">
+          <h5 class="text-xs leading-6 tracking-widest text-gray-500">關鍵字搜尋</h5>
           <el-input
+            class="border border-gray-300 rounded-md"
             v-model="state.search"
             :placeholder="searchPlaceholder"
             clearable
             @input="actions.handleAutoSearch"
-            @keyup.enter="actions.handleSearchByKeyword"
-          >
+            @keyup.enter="actions.handleSearchByKeyword">
           </el-input>
         </div>
         <div class="w-full lg:w-fit">
@@ -29,8 +27,7 @@
             v-if="actions.handleShowButton('search-updated-date')"
             v-model:date="propsTableData.search_params.updated_at"
             :label-text="labelTextDate"
-            @date-change="actions.handleSearchByUpdateDate"
-          />
+            @date-change="actions.handleSearchByUpdateDate" />
         </div>
 
         <div class="w-full lg:w-fit">
@@ -42,8 +39,7 @@
               propsTableData.search_params?.end_date,
             ]"
             :label-text="labelTextDateRange"
-            @date-change="actions.handleSearchByDateRange"
-          />
+            @date-change="actions.handleSearchByDateRange" />
         </div>
 
         <slot name="filterSection"> </slot>
@@ -51,10 +47,9 @@
           <div class="w-full lg:max-w-min">
             <el-button
               type="primary"
-              class="w-full font-normal"
+              class="w-full font-normal text-white"
               auto-insert-space
-              @click="actions.handleChange"
-            >
+              @click="actions.handleChange">
               <svg-icon name="search" class="mr-2 h-[16px] w-[16px]"></svg-icon>
               搜 尋
             </el-button>
@@ -66,7 +61,7 @@
       </section>
 
       <slot name="filterDateSection"></slot>
-    </section> -->
+    </section>
 
     <!-- 批次設定 / 頁數切換、重整-->
     <section class="flex items-center justify-between">
@@ -117,12 +112,14 @@
       @cell-click="actions.handleCellClick"
       @row-click="actions.handleRowClick">
       <slot name="showSelectedCol"></slot>
+      <!-- select -->
       <el-table-column
         v-if="showSelection"
         type="selection"
         align="center"
         width="55"
         :reserve-selection="true" />
+      <!-- index -->
       <el-table-column
         v-if="showIndex"
         type="index"
@@ -130,21 +127,15 @@
         align="center"
         label="項次"
         :index="actions.handleIndex" />
+      <!-- expand -->
       <el-table-column v-if="showExpandCol" width="55" align="center" type="expand">
         <template #default="scope">
           <slot name="expand" :row="scope.row"></slot>
         </template>
       </el-table-column>
 
-      <el-table-column v-if="showImageCol" label="圖片" width="90" align="center">
-        <template #default="scope">
-          <section class="flex items-center justify-center">
-            <slot name="image" :row="scope.row"> </slot>
-          </section>
-        </template>
-      </el-table-column>
       <el-table-column
-        v-for="{ prop, label, align, width, formatter, sort } in columns"
+        v-for="{ prop, label, align, width, formatter, sort, type } in columns"
         :key="prop"
         :prop="prop"
         :label="label"
@@ -156,11 +147,34 @@
         <template v-if="formatter" #default="scope">
           <slot v-if="formatter" :name="prop" :row="scope.row" :index="scope.$index"></slot>
         </template>
+        <template v-if="type == 'image'" #default="scope">
+          <el-image
+            :src="scope.row[prop] && '/logo.png'"
+            fit="cover"
+            class="max-w-[70px]"></el-image>
+        </template>
+        <template v-if="type == 'status'" #default="scope">
+          <el-tag
+            class="mx-1 !border-0"
+            :color="scope.row[prop] ? '#bfccb5' : '#e9edc9'"
+            effect="dark">
+            {{ scope.row[prop] ? '啟用' : '停用' }}
+          </el-tag>
+        </template>
+        <template v-if="type == 'date'" #default="scope">
+          {{ dayjs(scope.row[prop]).format('YYYY-MM-DD') }}
+        </template>
       </el-table-column>
-      <el-table-column v-if="showActionCol" width="140" align="center" label="功能">
+      <!-- 功能列 -->
+      <el-table-column v-if="rowButtons.length" width="140" align="center" label="功能">
         <template #default="scope">
           <section class="flex items-center justify-center action-buttons gap-x-3">
-            <slot name="action" :row="scope.row" :index="scope.$index"></slot>
+            <ButtonTipPermission
+              v-for="(item, index) in rowButtons"
+              :key="index"
+              :type="(item as string)"
+              @on-submit="emit('on-row-action-command', scope.row, item)">
+            </ButtonTipPermission>
           </section>
         </template>
       </el-table-column>
@@ -196,6 +210,7 @@
 </template>
 <script setup lang="ts">
 import { tableStyle } from '@/utils/formatTable'
+import { dayjs } from 'element-plus'
 import { isEmpty, debounce } from 'lodash-es'
 
 const router = useRouter()
@@ -222,10 +237,8 @@ const props = defineProps({
   showHeaderAndFooter: { type: Boolean, default: true },
   showOnlyPage: { type: Boolean, default: false },
   showSelection: { type: Boolean, default: true }, // 顯示勾選
-  showActionCol: { type: Boolean, default: true }, // 顯示功能
   showSelectedCol: { type: Boolean, default: false },
   showExpandCol: { type: Boolean, default: false },
-  showImageCol: { type: Boolean, default: false },
   showSummary: { type: Boolean, default: false },
   loading: { type: Boolean, default: false },
   isExpand: { type: Boolean, default: false },
@@ -234,6 +247,10 @@ const props = defineProps({
     type: Array,
     default: () => ['create', 'search-date-range'],
   }, // 功能按鈕
+  rowButtons: {
+    type: Array,
+    default: [],
+  }, // 列按鈕
   cellLinks: { type: Array, default: () => [] },
   redCols: { type: Array, default: () => [] },
   setMaxHeight: { type: Boolean, default: false },
@@ -250,6 +267,7 @@ const emit = defineEmits([
   'update:tableData',
   'cell-click',
   'row-click',
+  'on-row-action-command', // 列按鈕
 ])
 
 // ----------- ref -----------
@@ -360,6 +378,7 @@ const actions = {
 
   // 搜尋 - 關鍵字
   handleSearchByKeyword: () => {
+    console.log(1)
     propsTableData.value.search_params.q = state.value.search
     emit('search-keyword')
   },
