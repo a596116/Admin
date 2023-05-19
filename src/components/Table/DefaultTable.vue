@@ -316,18 +316,18 @@ const actions = {
     emit('on-change')
   },
 
-  handleCommand: (command) => {
+  handleCommand: (command: any) => {
     emit('on-command', command)
   },
 
   // 勾選
-  handleSelectionChange: (val) => {
+  handleSelectionChange: (val: any) => {
     multipleSelection.value = val
     emit('on-selection', val)
   },
 
   // 排序
-  handleSortChange: (val) => {
+  handleSortChange: (val: any) => {
     if (val.column) {
       const sortMap = {
         ascending: 'asc',
@@ -346,7 +346,7 @@ const actions = {
   },
 
   // 點擊單元格
-  handleCellClick: (row, column, cell, event) => {
+  handleCellClick: (row: any, column: any, cell: any, event: any) => {
     const params = {
       cell: column.property,
       row: row,
@@ -355,12 +355,12 @@ const actions = {
   },
 
   // 點擊行
-  handleRowClick: (row) => {
+  handleRowClick: (row: any) => {
     emit('row-click', row)
   },
 
   // 搜尋 - 更新日期
-  handleSearchByUpdateDate: (updated_at) => {
+  handleSearchByUpdateDate: (updated_at: string) => {
     propsTableData.value.search_params.updated_at = updated_at
     emit('on-change')
   },
@@ -380,13 +380,12 @@ const actions = {
 
   // 搜尋 - 關鍵字
   handleSearchByKeyword: () => {
-    console.log(1)
     propsTableData.value.search_params.q = state.value.search
     emit('search-keyword')
   },
 
   // 表格欄位為數字三位新增, / 表格欄位為空 預設顯示 '-'
-  formatNumberAndEmpty: (row, column) => {
+  formatNumberAndEmpty: (row: any, column: any) => {
     const isNumber = column.align === 'is-right'
     if (isNumber) {
       if (typeof row[column.property] === 'number' || !isEmpty(row[column.property])) {
@@ -403,13 +402,13 @@ const actions = {
     }
   },
 
-  handleShowButton: (action) => {
+  handleShowButton: (action: string) => {
     return props.actionButtons.includes(action)
   },
   // 搜尋 - 關鍵字
-  handleIndex: (index) => {
+  handleIndex: (index: any) => {
     const getData = propsTableData.value?.data || []
-    const totalRow = getData.findIndex((dataItem) => dataItem.id == 'total')
+    const totalRow = getData.findIndex((dataItem: any) => dataItem.id == 'total')
     if (totalRow == index) {
       return ''
     }

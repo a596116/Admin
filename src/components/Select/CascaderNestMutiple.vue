@@ -5,9 +5,9 @@
     </h5>
     <el-cascader
       ref="refCascader"
-      v-model="(selected as any)"
+      v-model="selected"
       :options="isSearch ? options : actions.handleFormatLevelOptions(options)"
-      :props="(state.props as any)"
+      :props="state.props"
       :placeholder="placeholder"
       :teleported="false"
       filterable
@@ -29,9 +29,9 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  defaultOption: {
+  modelValue: {
     type: Array,
-    default: '',
+    default: [],
   },
   options: {
     type: Array,
@@ -56,8 +56,8 @@ const props = defineProps({
   isSearch: { type: Boolean, default: false },
 })
 // ----------- emit -----------
-const emit = defineEmits(['on-change', 'update:defaultOption'])
-const refCascader = ref(null)
+const emit = defineEmits(['on-change', 'update:modelValue'])
+const refCascader = ref<any>()
 const state = ref({
   props: {
     multiple: true,
@@ -70,9 +70,9 @@ const state = ref({
 })
 // ----------- computed ----------
 const selected = computed({
-  get: () => props.defaultOption,
+  get: () => props.modelValue,
   set: (val) => {
-    emit('update:defaultOption', val)
+    emit('update:modelValue', val)
   },
 })
 const actions = {

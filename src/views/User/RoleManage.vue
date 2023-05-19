@@ -32,7 +32,7 @@
                   </div>
                 </template>
                 <CascaderNestMutiple
-                  v-model:default-option="state.form.data.role"
+                  v-model="state.form.data.role"
                   :options="state.selectOptions?.permissions"
                   children="children"
                   :show-all-levels="false"
