@@ -4,9 +4,13 @@ import App from './App.vue'
 import router, { setupRouter } from './router'
 
 
-const app = createApp(App)
-setupPlugins(app)
-setupRouter(app)
-await router.isReady()
+async function main() {
+    const app = createApp(App)
+    setupPlugins(app)
+    setupRouter(app)
 
-app.mount('#app')
+    await router.isReady()
+    app.mount('#app')
+}
+main()
+
