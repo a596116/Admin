@@ -130,30 +130,32 @@ const actions = {
 <style scoped lang="scss">
 section {
   @apply flex h-screen items-center justify-center overflow-hidden;
-  background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
+  // background: linear-gradient(to bottom, #f1f4f9, #dff1ff);
+  background: url('@/assets/img/loginBg.png');
 
-  .color {
-    position: absolute;
-    filter: blur(150px);
+  // .color {
+  //   position: absolute;
+  //   filter: blur(150px);
 
-    &:nth-child(1) {
-      @apply top-[-300px] h-[600px] w-[60%];
-      background: #c9dbb2;
-    }
+  //   &:nth-child(1) {
+  //     @apply top-[-300px] h-[600px] w-[60%];
+  //     background: #c9dbb2;
+  //   }
 
-    &:nth-child(2) {
-      @apply bottom-[50px] left-[100px] h-[400px] w-[70%];
-      background: #e3f2c1;
-    }
+  //   &:nth-child(2) {
+  //     @apply bottom-[50px] left-[100px] h-[400px] w-[70%];
+  //     background: #e3f2c1;
+  //   }
 
-    &:nth-child(3) {
-      @apply bottom-[200px] right-[200px] h-[300px] w-[50%];
-      background: #f6ffde;
-    }
-  }
+  //   &:nth-child(3) {
+  //     @apply bottom-[200px] right-[200px] h-[300px] w-[50%];
+  //     background: #f6ffde;
+  //   }
+  // }
 
   .box {
     position: relative;
+
     .square {
       position: absolute;
       backdrop-filter: blur(5px);
@@ -161,7 +163,7 @@ section {
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-right: 1px solid rgba(255, 255, 255, 0.2);
       border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.6);
       border-radius: 10px;
       animation: animate 10s linear infinite;
       animation-delay: calc(-1s * var(--i));
@@ -192,7 +194,7 @@ section {
 
       .container {
         @apply relative flex min-h-[400px] w-[100%] items-center justify-center rounded-[10px] md:w-[400px];
-        background: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.8);
         box-shadow: 0 25px 45px rgba(0, 0, 0, 0.1);
         border: 1px solid rgba(255, 255, 255, 0.5);
         border-right: 1px solid rgba(255, 255, 255, 0.2);
