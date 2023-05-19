@@ -1,4 +1,3 @@
-import { CacheEnum } from '@/enum/cacheEnum'
 import { http } from '@/plugins/axios'
 
 export interface IRegisterUser {

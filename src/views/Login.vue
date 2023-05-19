@@ -49,9 +49,9 @@ import type { ILoginUser, IRegisterUser } from '@/apis/authApi'
 import type { FormRules } from 'element-plus'
 
 const router = useRouter()
-
+const route = useRoute()
 const state = reactive({
-  isSigin: false, //false->login | true->regist
+  isSigin: route.path.includes('login') ? false : true, //false->login | true->regist
   // columns
   authLoginForm: [
     { title: '手機', name: 'phone', placeholder: '手機' },
@@ -67,11 +67,11 @@ const state = reactive({
   loginForm:
     env.VITE_APP_TITLE == 'dev'
       ? {
-          phone: '0911111111',
+          phone: '0988640301',
           password: '123456',
         }
       : ({
-          phone: '0999999999',
+          phone: '0911111111',
           password: '123456',
         } as ILoginUser),
   regiserForm: {

@@ -1,11 +1,13 @@
 <template>
   <div class="flex items-center">
     <el-dropdown class="">
-      <div class="flex w-full items-center justify-center">
-        <img
+      <div class="flex items-center justify-center w-full duration-200 hover:-translate-y-1">
+        <el-image
           :src="userStore.user?.avatar !== '0' ? userStore.user?.avatar : '/logo.png'"
-          class="logo1 h-8 w-8 rounded-full object-cover" />
-        <span class="text-hd-black mx-2 w-full text-base">
+          class="object-cover w-8 h-8 rounded-full logo1"
+          fit="contain"
+          :lazy="true" />
+        <span class="w-full mx-2 text-base text-hd-black">
           {{ userStore.user?.name }}
         </span>
       </div>

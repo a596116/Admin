@@ -1,8 +1,4 @@
 import { http } from '@/plugins/axios'
-export interface Data<T> {
-  count: number
-  rows: T[]
-}
 
 class userApi {
   /**
@@ -25,13 +21,6 @@ class userApi {
     })
   }
 
-  create<T>(table: string, data: T) {
-    return http.request({
-      url: `data/create/${table}`,
-      method: 'post',
-      data
-    })
-  }
 
   delete(table: string, id: number) {
     return http.request({

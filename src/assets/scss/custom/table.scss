@@ -275,3 +275,7 @@ $darkColor: #252525;
     color: #000;
   }
 }
+
+.el-scrollbar__wrap {
+  max-height: 100% !important;
+}

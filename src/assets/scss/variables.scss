@@ -4,6 +4,7 @@
 @use './custom/input.scss' as *;
 @use './custom/messageBox.scss' as *;
 @use './custom/dropDown.scss' as *;
+@use './custom/menu.scss' as *;
 
 @import './custom/button.scss';
 $colors: (
@@ -48,8 +49,8 @@ $colors: (
   --table-expand-row-bg: #f8fbff !important;
   --table-expand-hover-row-bg: #c8c8c8 !important;
   --search-input-bg: rgba(232, 240, 254, 0.6) !important;
-  --form-input-bg: #f5f7fa !important;
-  --form-view-bg: #ffffff !important;
+  --form-input-bg: #d2dade !important;
+  --form-view-bg: #aac8a7 !important;
   --el-border-radius-base: 8px !important;
   --el-border-color-extra-light: #b3dff4 !important;
   --el-color-danger: #f36666 !important;
@@ -57,7 +58,7 @@ $colors: (
   --el-color-warning: #ffeeb3 !important;
   --el-color-info: #b7b7b7 !important;
   --primary-text-color: #252525 !important;
-  --form-editable-bg: #f5f7fa !important;
+  --form-editable-bg: #e3eada !important;
   --el-disabled-bg-color: #ececec !important;
   --el-menu-hover-bg-color: none !important;
   --el-menu-hover-text-color: #c9dbb2 !important;

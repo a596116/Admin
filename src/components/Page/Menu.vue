@@ -2,20 +2,24 @@
   <el-menu
     :collapse="!menuStore.isMenuCollapse"
     :default-active="active_menu"
-    mode="horizontal"
+    mode="vertical"
     class="admin-menu"
     :unique-opened="true">
-    <div class="flex w-[120px] ml-6 items-center justify-center px-2 cursor-pointer">
+    <div class="flex items-center justify-center w-full px-2 my-4 cursor-pointer">
       <svg-icon
-        name="logo"
+        :name="menuStore.isMenuCollapse ? 'logo' : 'logo1'"
         class="h-[45px] w-full"
         @click="router.push({ name: 'admin' })"></svg-icon>
     </div>
 
     <div class="mr-2" v-for="(menu, index) in menuStore.menus" :key="index">
       <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title!">
-        <span class="m-4 md:m-5">{{ menu.title }}</span>
-
+        <template #title>
+          <section class="hidden md:block">
+            <svg-icon name="home"></svg-icon>
+          </section>
+          <span class="m-2 md:m-7">{{ menu.title }}</span>
+        </template>
         <el-menu-item
           v-for="(cmenu, index) in menu.children"
           :key="index"
@@ -29,7 +33,10 @@
         v-else
         :index="menu.children[0]?.route?.split('/')[1]"
         @click="handle(menu, menu.children![0])">
-        {{ menu.children[0].title }}
+        <section class="hidden md:block">
+          <svg-icon name="home"></svg-icon>
+        </section>
+        <span class="m-2 md:m-7">{{ menu.children[0].title }}</span>
       </el-menu-item>
     </div>
   </el-menu>
@@ -60,44 +67,48 @@ watch(
 
 <style scoped lang="scss">
 .admin-menu {
+  @apply border-0 bg-hd-Bg-1 max-w-[130px] md:max-w-[220px] h-[calc(100vh-32px)] m-4 rounded-lg overflow-hidden;
   transition: width 0.3s ease-in-out;
-  @apply border-0 bg-hd-Bg-1;
+  box-shadow: 5px 5px 14px #a7aaad, -5px -5px 14px #ffffff;
   * {
     @apply bg-hd-Bg-1;
   }
-}
-// Menu
-:deep(.el-sub-menu__title),
-:deep(.el-menu-item) {
-  @apply rounded-lg;
-  span,
-  svg {
-    background-color: transparent !important;
-    // color: var(--hd-text);
-    letter-spacing: 8px;
-    transition: 0.3s ease-in-out !important;
-  }
-
-  &:hover,
-  &.is-active {
-    @apply text-hd-HoverColor;
+  // Menu
+  :deep(.el-sub-menu__title),
+  :deep(.el-menu-item) {
+    @apply rounded-lg;
     span,
-    svg,
-    * {
+    svg {
+      background-color: transparent !important;
+      // color: var(--hd-text);
+      letter-spacing: 8px;
+      transition: 0.3s ease-in-out !important;
+    }
+
+    &:hover,
+    &.is-active {
       @apply text-hd-HoverColor;
+      span,
+      svg,
+      * {
+        @apply text-hd-HoverColor;
+      }
     }
   }
-}
 
-.is-active .el-sub-menu__title * {
-  color: var(--hd-hover-color) !important;
-}
+  .is-active .el-sub-menu__title * {
+    color: var(--hd-hover-color) !important;
+  }
 
-.form-container input::placeholder {
-  color: #fff !important;
-}
+  .form-container input::placeholder {
+    color: #fff !important;
+  }
 
-.el-menu.el-menu--collapse {
-  @apply w-0;
+  .el-menu.el-menu--collapse {
+    @apply w-0;
+  }
+}
+:deep(.el-sub-menu__icon-arrow) {
+  @apply hidden;
 }
 </style>

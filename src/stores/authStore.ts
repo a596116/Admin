@@ -49,7 +49,7 @@ export const useAuthStore = defineStore('auth', () => {
    * @description: 獲取用戶權限
    */
   const getUserPermission = () => {
-    return user.value?.UserRole[0].role.permissions.map((p) => p.name) || []
+    return user.value?.UserRole[0].role.RolePermission.map((p) => p.permission.name) || []
   }
 
   const login = async (loginForm: ILoginUser) => {

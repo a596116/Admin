@@ -4,14 +4,17 @@ export default {
     auth: true,
     name: 'admin',
     menu: {
-      title: 'User',
-      icon: 'user',
+      title: '用戶管理',
+      // icon: 'user',
     },
   },
   children: [
+    /**
+     * @description: User
+     */
     {
       name: 'admin/user',
-      path: 'user/:id?',
+      path: 'user/',
       component: () => import('@/views/User/User.vue'),
       meta: {
         menu: { title: '用戶', }, permission: 'create', number: 2
@@ -23,7 +26,63 @@ export default {
       path: 'user/edit/:id?',
       component: () => import('@/views/User/UserManage.vue'),
       meta: {
-        permission: '超級用戶', number: 2
+        menu: { title: '編輯用戶', hidden: true }, permission: 'edit'
+      },
+    },
+
+    /**
+     * @description: Roles
+     */
+    {
+      name: 'admin/role',
+      path: 'role/',
+      component: () => import('@/views/User/Role.vue'),
+      meta: {
+        menu: { title: '角色管理', }, permission: 'create', number: 2
+      },
+    },
+    {
+      name: 'admin/roleCreateManage',
+      path: 'role/create/',
+      component: () => import('@/views/User/RoleManage.vue'),
+      meta: {
+        menu: { title: '新增角色管理', hidden: true }, permission: 'create'
+      },
+    },
+    {
+      name: 'admin/roleEditManage',
+      path: 'role/edit/:id?',
+      component: () => import('@/views/User/RoleManage.vue'),
+      meta: {
+        menu: { title: '編輯角色管理', hidden: true }, permission: 'edit'
+      },
+    },
+
+    /**
+     * @description: Permissions
+     */
+    {
+      name: 'admin/permission',
+      path: 'permission/',
+      component: () => import('@/views/User/Permission.vue'),
+      meta: {
+        menu: { title: '權限管理' }, permission: 'create', number: 2
+      },
+    },
+    {
+      name: 'admin/permissionCreateManage',
+      path: 'permission/create/',
+      component: () => import('@/views/User/PermissionManage.vue'),
+      meta: {
+        menu: { title: '新增權限管理', hidden: true }, permission: 'create'
+      },
+    },
+    {
+      name: 'admin/permissionEditManage',
+      path: 'permission/edit/:id?',
+      component: () => import('@/views/User/PermissionManage.vue'),
+      meta: {
+        menu: { title: '編輯權限管理', hidden: true }, permission: 'edit'
       },
     },
   ],

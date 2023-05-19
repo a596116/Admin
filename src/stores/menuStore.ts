@@ -51,7 +51,7 @@ export const useMenuStore = defineStore('menu', () => {
   const getMenuByRoute = async (page: string) => {
     menus.value = router
       .getRoutes()
-      .filter((route) => route.meta.page?.name === page && route.meta.menu)
+      .filter((route) => route.meta.page?.name === page && !route.meta.menu?.hidden)
       .sort((a, b) => {
         return (a.meta.number!) - (b.meta.number!)
       })

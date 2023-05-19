@@ -28,10 +28,10 @@
 }
 
 .el-button--primary {
-  --el-button-hover-bg-color: var(--hd-hover-color);
-  --el-button-hover-border-color: var(--hd-hover-color);
-  --el-button-active-bg-color: var(--hd-click-color);
-  --el-button-active-border-color: var(--hd-click-color);
+  --el-button-hover-bg-color: var(--hd-hover-color) !important;
+  --el-button-hover-border-color: var(--hd-hover-color) !important;
+  --el-button-active-bg-color: var(--hd-click-color) !important;
+  --el-button-active-border-color: var(--hd-click-color) !important;
   --el-button-disabled-bg-color: var(--hd-disable) !important;
   --el-button-disabled-border-color: var(--hd-disable) !important;
 }

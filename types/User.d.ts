@@ -1,36 +1,50 @@
 interface IUser {
-    id: string
+    id: number
     name: string
     phone: string
     password: string
     avatar?: string
     status: boolean
     permissions: string[]
-    UserRole: UserRole[]
+    UserRole: IUserRole[]
     created_at?: string
     updated_at?: string
 }
 
-interface UserRole {
+interface IUserRole {
     id: number
     userId: number
     roleId: number
-    role: Role
+    created_at: string
+    updated_at: string
+    role: IRole
 }
 
-interface Role {
+interface IRole {
     id: number
     name: string
-    permissions: Permission[]
+    creator: string
+    remark: string
+    created_at: string
+    updated_at: string
+    RolePermission: IRolePermission[]
 }
 
-interface Permission {
+interface IRolePermission {
+    id: number
+    roleId: number
+    permissionId: number
+    created_at: string
+    updated_at: string
+    permission: IPermission
+}
+
+interface IPermission {
     id: number
     name: string
-}
-
-interface Login {
-    token: string
-    userId: number
+    creator: string
+    remark: string
+    created_at: string
+    updated_at: string
 }
 

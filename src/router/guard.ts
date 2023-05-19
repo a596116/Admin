@@ -1,4 +1,5 @@
 import { CacheEnum } from '@/enum/cacheEnum'
+import getPageTitle from '@/utils/getPageTitle'
 import type { RouteLocationNormalized, Router } from 'vue-router'
 
 class Guard {
@@ -8,7 +9,7 @@ class Guard {
   }
 
   private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
-
+    document.title = getPageTitle(to.meta.menu?.title!)
     if (to.meta.page?.auth && !this.token()) {
       storage.set(CacheEnum.REDIRECT_ROUTE_NAME, to.name)
       return { name: 'login' }

@@ -1,5 +1,6 @@
 interface Menu {
     title?: string,
+    hidden?: boolean,
     icon?: string,
     isClick?: boolean,
     route?: string,

@@ -1,6 +1,6 @@
 <template>
   <el-button
-    v-permission="{ currentTag: 'admin', effect: 'disabled' }"
+    v-permission="{ currentTag: 'create', effect: 'disabled' }"
     type="primary"
     auto-insert-space
     @click="emit('on-create')"

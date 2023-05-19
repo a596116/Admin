@@ -12,7 +12,7 @@
           :type="f.type"
           @keyup.enter="submitForm(FormRef)"
           class="mt-[20px]" />
-        <div v-else class="flex items-center justify-center w-full">
+        <div v-else class="flex items-center justify-center w-full mt-[20px]">
           <el-input
             v-model.trim="model[f.name]"
             :placeholder="f.placeholder"

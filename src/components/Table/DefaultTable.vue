@@ -1,5 +1,5 @@
 <template>
-  <main class="flex flex-col w-full h-full" :class="{ 'gap-y-2': formatShowHeader }">
+  <main class="flex flex-col w-full h-full" :class="{ 'gap-y-2': showHeader }">
     <!-- <section
       v-if="formatShowHeader"
       class="flex items-center justify-between w-full"
@@ -9,7 +9,7 @@
       </div>
     </section> -->
     <!-- 關鍵字、日期搜尋 -->
-    <section v-if="formatShowHeader" class="flex justify-between pb-3 border-b">
+    <section v-if="showHeader" class="flex justify-between pb-3 border-b">
       <section class="flex flex-col items-center gap-3 lg:flex-row">
         <div class="w-full lg:w-fit lg:min-w-[300px] px-4">
           <h5 class="text-xs leading-6 tracking-widest text-gray-500">關鍵字搜尋</h5>
@@ -64,7 +64,7 @@
     </section>
 
     <!-- 批次設定 / 頁數切換、重整-->
-    <section class="flex items-center justify-between">
+    <section class="flex items-center justify-between my-2">
       <section class="flex items-center gap-x-6">
         <transition name="slide-fade" mode="out-in">
           <section v-if="multipleSelection?.length > 0" class="flex items-center gap-x-3">
@@ -80,7 +80,7 @@
         <slot name="refreshTime"></slot>
       </section>
       <section
-        v-if="formatShowHeader"
+        v-if="actionButtons.length > 0"
         class="flex items-center justify-end flex-grow"
         :class="{ 'gap-x-3': actions.handleShowButton('batch') }">
         <ButtonCreate
@@ -178,6 +178,13 @@
           </section>
         </template>
       </el-table-column>
+      <el-table-column v-if="showActionCol" width="140" align="center" label="功能">
+        <template #default="scope">
+          <section class="flex items-center justify-center action-buttons gap-x-3">
+            <slot name="action" :row="scope.row" :index="scope.$index"></slot>
+          </section>
+        </template>
+      </el-table-column>
       <template #empty>
         <el-empty description="尚無資料" :image-size="120"></el-empty>
       </template>
@@ -188,10 +195,7 @@
 
     <!-- 頁數切換 -->
     <footer
-      v-if="
-        (showHeaderAndFooter && propsTableData.total > 0) ||
-        (showOnlyPage && propsTableData.total > 0)
-      "
+      v-if="propsTableData.total > 0 || (showOnlyPage && propsTableData.total > 0)"
       class="flex items-center justify-center gap-4 mt-auto"
       :class="{ 'pt-3': showOnlyPage && propsTableData.total > 0 }">
       <div class="flex items-center gap-x-3">
@@ -234,7 +238,9 @@ const props = defineProps({
   },
   alertRow: { type: Array, default: [] },
   showIndex: { type: Boolean, default: true }, // 顯示項次
-  showHeaderAndFooter: { type: Boolean, default: true },
+  showHeader: { type: Boolean, default: true },
+  showActionCol: { type: Boolean, default: false },
+  showFooter: { type: Boolean, default: true },
   showOnlyPage: { type: Boolean, default: false },
   showSelection: { type: Boolean, default: true }, // 顯示勾選
   showSelectedCol: { type: Boolean, default: false },
@@ -301,10 +307,6 @@ const formatTableStyle = computed(() => {
   } else {
     return props.tableStyle
   }
-})
-
-const formatShowHeader = computed(() => {
-  return props.showHeaderAndFooter
 })
 
 // ----------- actions ----------

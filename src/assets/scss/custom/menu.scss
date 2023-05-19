@@ -1,0 +1,8 @@
+.el-menu,
+.el-menu * {
+  background-color: var(--hd-bg-1) !important;
+}
+
+.el-menu--popup {
+  min-width: 120px;
+}
