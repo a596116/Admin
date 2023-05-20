@@ -50,14 +50,14 @@ export default ({ command }: ConfigEnv): any => {
     server: {
       port: 3069,
       // base: "./ ", //生产环境路径
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://localhost:3000',
-      //     changeOrigin: true,
-      //     rewrite: (path: any) => path.replace(/^\/api/, ""),
-      //   }
-      // },
-      // cors: true,
+      proxy: {
+        '/api': {
+          target: process.env.VITE_BASEURL,
+          changeOrigin: true,
+          rewrite: (path: any) => path.replace(/^\/api/, ""),
+        }
+      },
+      cors: true,
     }
   }
 }
