@@ -57,7 +57,7 @@ export default ({ command }: ConfigEnv): any => {
           rewrite: (path: any) => path.replace(/^\/api/, ""),
         }
       },
-      // cors: true,
+      cors: true,
     }
   }
 }
