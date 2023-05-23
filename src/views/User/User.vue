@@ -39,7 +39,7 @@ const state = reactive({
     current: 1,
     take: 2,
     total: 1,
-    sort: 'created_at-desc',
+    sort: 'created_at-asc',
     message: '',
     search_params: {
       start_date: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),

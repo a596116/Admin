@@ -13,12 +13,14 @@
         <div class="content grid w-full grid-rows-[auto_1fr] bg-hd-Bg-1 bg-cover bg-no-repeat">
           <div class="relative w-full bg-transparent">
             <NavBar />
-            <!-- <HistoryLink
-            class="hidden md:block"
-            :class="{ 'md:hidden': !menuStore.isHistoryCollapse }" /> -->
+            <transition name="top-slide-fade" mode="out-in">
+              <HistoryLink v-if="menuStore.isHistoryCollapse" />
+            </transition>
           </div>
 
-          <main class="relative m-6 overflow-y-auto rounded-lg main bg-hd-Bg-1">
+          <main
+            class="relative mx-6 mb-6 overflow-y-auto rounded-lg main bg-hd-Bg-1"
+            :class="{ 'mt-6': menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse }">
             <router-view #default="{ Component, route }">
               <Transition
                 appear

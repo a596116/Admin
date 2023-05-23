@@ -68,7 +68,8 @@ export const useAuthStore = defineStore('auth', () => {
             router.push({ name: routeName })
             ElMessage.success(`歡迎 ${user.value?.name}`)
           } else {
-            // storage.remove(CacheEnum.TOKEN_NAME)
+            storage.remove(CacheEnum.TOKEN_NAME)
+            userId.value = undefined
             ElMessage.error('您以被停權，請聯繫管理員')
           }
         } else {

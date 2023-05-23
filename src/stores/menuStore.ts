@@ -28,7 +28,8 @@ export const useMenuStore = defineStore('menu', () => {
 
   const addHistoryMenu = (r: RouteLocationNormalized) => {
     if (!r.meta?.menu) return
-    if (isHistoryCollapse.value) return
+    if (r.meta?.menu.hidden) return
+    if (!isHistoryCollapse.value) return
     route.value = r.meta
     const menu: IMenu = { ...r.meta?.menu, route: r.name as string }
     const index = Object.entries(historyMenus.value!).findIndex(([key, value]) => value.route === r.name)
