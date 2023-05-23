@@ -16,7 +16,7 @@
       <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title!">
         <template #title>
           <section class="hidden md:block">
-            <svg-icon name="home"></svg-icon>
+            <svg-icon :name="menu.icon" class="w-5 h-5"></svg-icon>
           </section>
           <span class="m-2 md:m-7">{{ menu.title }}</span>
         </template>
@@ -34,7 +34,7 @@
         :index="menu.children[0]?.route?.split('/')[1]"
         @click="handle(menu, menu.children![0])">
         <section class="hidden md:block">
-          <svg-icon name="home"></svg-icon>
+          <svg-icon :name="menu.icon" class="w-5 h-5"></svg-icon>
         </section>
         <span class="m-2 md:m-7">{{ menu.children[0].title }}</span>
       </el-menu-item>
@@ -108,7 +108,7 @@ watch(
     @apply w-0;
   }
 }
-:deep(.el-sub-menu__icon-arrow) {
+:deep(.el-menu--collapse .el-sub-menu__icon-arrow) {
   @apply hidden;
 }
 </style>

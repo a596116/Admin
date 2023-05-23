@@ -9,7 +9,7 @@
     <slot name="form" />
 
     <!-- footer -->
-    <div class="sticky bottom-0 right-0 w-full mt-auto" style="z-index: 99">
+    <div class="sticky bottom-0 right-0 w-full mt-auto" style="z-index: 9">
       <FooterFormManage v-if="showFooter" class="mt-auto" @on-submit="emit('on-submit')">
         <template #alert>
           <span class="px-3 text-sm tracking-widest text-red-400">{{ alertText }}</span>

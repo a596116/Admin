@@ -161,8 +161,12 @@ const actions = {
    * @description 更新
    */
   handleEdit: (params: any) => {
+    const data = {
+      id: params.id,
+      remark: params.lists.data[0].remark,
+    }
     api.permissionApi
-      .update(params)
+      .update(data)
       .then((result) => {
         if (result?.code === 200) {
           mesBox

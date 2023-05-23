@@ -10,10 +10,21 @@
     @on-change="actions.handleFetchAll"
     @on-command="actions.handleCommand"
     @on-row-action-command="actions.handleRowActionCommand">
+    <!-- 角色名稱 -->
+    <template #name="scope">
+      <TableCellLink
+        :value="scope.row.name"
+        @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
+    </template>
+
     <!-- 權限 -->
     <template #permissions="scope">
-      <el-tag class="mx-1 !border-0" effect="plain">
-        {{ scope.row.UserRole[0].role.name }}
+      <el-tag
+        class="mx-1 !border-0"
+        effect="plain"
+        v-for="item of scope.row.permissions"
+        :key="item">
+        {{ item }}
       </el-tag>
     </template>
   </DefaultTable>
@@ -50,8 +61,10 @@ const actions = {
     const params = { page, take, sort, ...search_params }
     api.roleApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
-        { label: '權限名稱', prop: 'name', align: 'center' },
-        { label: '新增日期', prop: 'created_at', type: 'date' },
+        { label: '角色名稱', prop: 'name', align: 'center', width: 120, formatter: true },
+        { label: '角色權限', prop: 'permissions', align: 'center', formatter: true },
+        { label: '備註', prop: 'remark', align: 'center' },
+        { label: '新增日期', prop: 'created_at', type: 'date', width: 110 },
       ]
       const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result
       state.table = {
@@ -102,6 +115,18 @@ const actions = {
       query: query,
     })
   },
+
+  /**
+   * @description 點擊欄位
+   */
+  handleCellClick: (params: any) => {
+    const { cell, row } = params
+    const id = row.id
+    if (cell === 'name') {
+      actions.handleRoutePush(`${id}`)
+    }
+  },
+
   /*
    * @description: 刪除
    */

@@ -10,6 +10,12 @@
     @on-change="actions.handleFetchAll"
     @on-command="actions.handleCommand"
     @on-row-action-command="actions.handleRowActionCommand">
+    <!-- 名稱 -->
+    <template #name="scope">
+      <TableCellLink
+        :value="scope.row.name"
+        @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
+    </template>
   </DefaultTable>
 </template>
 
@@ -39,12 +45,24 @@ onMounted(() => {
 })
 
 const actions = {
+  /**
+   * @description 點擊欄位
+   */
+  handleCellClick: (params: any) => {
+    const { cell, row } = params
+    const id = row.id
+    if (cell === 'name') {
+      actions.handleRoutePush(`${id}`)
+    }
+  },
+
   handleFetchAll: (showLoading = true) => {
     const { current: page, take, sort, search_params } = state.table
     const params = { page, take, sort, ...search_params }
     api.permissionApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
-        { label: '權限名稱', prop: 'name', align: 'center' },
+        { label: '權限名稱', prop: 'name', align: 'center', formatter: true },
+        { label: '備註', prop: 'remark', align: 'center' },
         { label: '新增日期', prop: 'created_at', type: 'date' },
       ]
       const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result

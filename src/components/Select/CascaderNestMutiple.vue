@@ -5,9 +5,9 @@
     </h5>
     <el-cascader
       ref="refCascader"
-      v-model="selected"
+      v-model="(selected as any)"
       :options="isSearch ? options : actions.handleFormatLevelOptions(options)"
-      :props="state.props"
+      :props="(state.props as any)"
       :placeholder="placeholder"
       :teleported="false"
       filterable

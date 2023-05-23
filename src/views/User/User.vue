@@ -7,15 +7,22 @@
     search-placeholder="搜尋用戶"
     label-text-date-range="註冊日期"
     :action-buttons="['search-date-range']"
-    :row-buttons="['edit', 'delete']"
+    :row-buttons="['edit']"
     @on-change="actions.handleFetchAll"
     @search-keyword="actions.handleFetchAll(false)"
     @on-row-action-command="actions.handleRowActionCommand">
+    <!-- 名稱 -->
+    <template #name="scope">
+      <TableCellLink
+        :value="scope.row.name"
+        @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
+    </template>
+
     <!-- 權限 -->
     <template #permissions="scope">
-      <el-tag class="mx-1 !border-0" effect="plain">
-        {{ scope.row.UserRole[0].role.name }}
-      </el-tag>
+      <TableCellLink
+        :value="scope.row.UserRole[0].role.name"
+        @cell-click="actions.handleCellClick({ cell: 'permissions', row: scope.row })" />
     </template>
   </DefaultTable>
 </template>
@@ -40,6 +47,9 @@ const state = reactive({
       q: null,
     },
   },
+  cellLinks: {
+    main: ['permissions'],
+  },
 })
 onMounted(() => {
   actions.handleFetchAll()
@@ -51,7 +61,7 @@ const actions = {
     const params = { page, take, sort, ...search_params }
     api.userApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
-        { label: '名稱', prop: 'name', align: 'center' },
+        { label: '名稱', prop: 'name', align: 'center', formatter: true },
         { label: '手機號', prop: 'phone', width: 120 },
         { label: '狀態', prop: 'status', width: 80, type: 'status' },
         { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
@@ -80,10 +90,27 @@ const actions = {
       query: query,
     })
   },
+
+  /**
+   * @description 點擊欄位
+   */
+  handleCellClick: (params: any) => {
+    const { cell, row } = params
+    const id = row.id
+    if (cell === 'permissions') {
+      router.push({
+        path: `/role/${id}`,
+      })
+    }
+    if (cell === 'name') {
+      actions.handleRoutePush(`${id}`)
+    }
+  },
+
   /*
    * @description: 刪除
    */
-  handleDeleteConfirm: (id: string) => {
+  handleDeleteConfirm: (id: number) => {
     mesBox
       .question({
         title: `刪除用戶?`,

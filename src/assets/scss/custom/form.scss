@@ -67,6 +67,9 @@
 }
 
 .custom-form {
+  .el-input__wrapper {
+    box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset !important;
+  }
   .el-row {
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -145,7 +148,7 @@
 
 .el-form {
   .el-cascader:not(.is-disabled):hover .el-input__wrapper {
-    box-shadow: none !important;
+    // box-shadow: none !important;
   }
 }
 
@@ -178,12 +181,13 @@
 
   .el-input__wrapper {
     box-shadow: none;
-    background-color: var(--form-input-bg) !important;
+    // background-color: var(--form-input-bg) !important;
   }
 }
 
 .custom-input-bg-style.el-input.is-disabled {
   .el-input__wrapper {
+    background-color: var(--hd-disable) !important;
     box-shadow: none !important;
   }
 }

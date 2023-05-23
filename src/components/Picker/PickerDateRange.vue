@@ -4,18 +4,18 @@
     <div class="flex items-center border border-gray-300 rounded-md">
       <el-date-picker
         ref="refDatePicker"
-        v-model="propsDateValue"
+        v-model="(propsDateValue as any)"
         :disabled="disabled"
         :disabled-date="disabledDate"
         :shortcuts="state.shortcuts"
         :clearable="clearable"
         :teleported="teleported"
-        :size="size"
+        :size="(size as any)"
         type="daterange"
         range-separator="-"
         start-placeholder="開始日期"
         end-placeholder="结束日期"
-        class="date-picker w-full-date"
+        class="date-picker w-[300px]"
         @change="actions.handleChange">
       </el-date-picker>
     </div>

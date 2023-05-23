@@ -6,3 +6,7 @@
 .el-menu--popup {
   min-width: 120px;
 }
+
+.el-menu--collapse .el-sub-menu__icon-arrow {
+  @apply hidden;
+}

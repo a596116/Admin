@@ -11,24 +11,20 @@ class userApi {
     })
   }
 
+  fetch(id: number) {
+    return http.request<IUser>({
+      url: `auth/${id}`,
+    })
+  }
 
-  // 修改資料data(table哪張表, id哪筆資料, data要修改的資料)
-  update(table: string, id: string, data: any) {
+
+  update(data: any) {
     return http.request({
-      url: `data/${table}?id=${id}`,
+      url: `auth/${data.id}`,
       method: 'put',
       data,
     })
   }
-
-
-  delete(table: string, id: number) {
-    return http.request({
-      url: `data/${table}?id=${id}`,
-      method: 'DELETE'
-    })
-  }
-
 }
 
 export default new userApi()

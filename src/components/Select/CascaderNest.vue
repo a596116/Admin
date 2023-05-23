@@ -28,8 +28,8 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-  defaultOption: {
-    type: Array,
+  modelValue: {
+    type: String,
     default: '',
   },
   options: {
@@ -55,11 +55,10 @@ const props = defineProps({
   isSearch: { type: Boolean, default: false },
 })
 // ----------- emit -----------
-const emit = defineEmits(['on-change', 'update:defaultOption'])
+const emit = defineEmits(['on-change', 'update:modelValue'])
 const refCascader = ref(null)
 const state = ref({
   props: {
-    multiple: false,
     value: 'id',
     label: 'name',
     children: props.children,
@@ -69,17 +68,18 @@ const state = ref({
 })
 // ----------- computed ----------
 const selected = computed({
-  get: () => props.defaultOption,
+  get: () => props.modelValue,
   set: (val) => {
-    emit('update:defaultOption', val)
+    emit('update:modelValue', val)
   },
 })
 const actions = {
   handleClear: () => {
-    selected.value = []
+    selected.value = ''
     refCascader.value.handleClear()
   },
   handleChange: (id) => {
+    console.log(123)
     let params = {
       label: '',
       value: id,

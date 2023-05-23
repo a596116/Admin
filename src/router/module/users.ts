@@ -5,7 +5,7 @@ export default {
     name: 'admin',
     menu: {
       title: '用戶管理',
-      // icon: 'user',
+      icon: 'user',
     },
   },
   children: [
@@ -20,6 +20,14 @@ export default {
         menu: { title: '用戶', }, permission: 'create', number: 2
       },
       props: (route) => ({ id: route.params.id || 1 })
+    },
+    {
+      name: 'admin/user/view',
+      path: 'user/:id?',
+      component: () => import('@/views/User/UserManage.vue'),
+      meta: {
+        menu: { title: '用戶', hidden: true }, permission: '', number: 2
+      },
     },
     {
       name: 'admin/userManage',
@@ -42,7 +50,15 @@ export default {
       },
     },
     {
-      name: 'admin/roleCreateManage',
+      name: 'admin/role/view',
+      path: 'role/:id?',
+      component: () => import('@/views/User/RoleManage.vue'),
+      meta: {
+        menu: { title: '角色管理', hidden: true }, permission: '', number: 2
+      },
+    },
+    {
+      name: 'admin/role/create',
       path: 'role/create/',
       component: () => import('@/views/User/RoleManage.vue'),
       meta: {
@@ -50,7 +66,7 @@ export default {
       },
     },
     {
-      name: 'admin/roleEditManage',
+      name: 'admin/role/edit',
       path: 'role/edit/:id?',
       component: () => import('@/views/User/RoleManage.vue'),
       meta: {
@@ -70,7 +86,15 @@ export default {
       },
     },
     {
-      name: 'admin/permissionCreateManage',
+      name: 'admin/permission/view',
+      path: 'permission/:id?',
+      component: () => import('@/views/User/PermissionManage.vue'),
+      meta: {
+        menu: { title: '權限管理', hidden: true }, permission: '', number: 2
+      },
+    },
+    {
+      name: 'admin/permission/create',
       path: 'permission/create/',
       component: () => import('@/views/User/PermissionManage.vue'),
       meta: {
@@ -78,7 +102,7 @@ export default {
       },
     },
     {
-      name: 'admin/permissionEditManage',
+      name: 'admin/permission/edit',
       path: 'permission/edit/:id?',
       component: () => import('@/views/User/PermissionManage.vue'),
       meta: {
