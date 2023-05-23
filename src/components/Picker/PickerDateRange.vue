@@ -4,7 +4,7 @@
     <div class="flex items-center border border-gray-300 rounded-md">
       <el-date-picker
         ref="refDatePicker"
-        v-model="(propsDateValue as any)"
+        v-model="propsDateValue"
         :disabled="disabled"
         :disabled-date="disabledDate"
         :shortcuts="state.shortcuts"
