@@ -21,7 +21,7 @@
                 <el-input
                   v-model="state.form.data.name"
                   placeholder="輸入用戶名稱"
-                  :disabled="!canEdit || route.path.includes('1')"
+                  :disabled="!canEdit"
                   class="custom-input-bg-style"></el-input>
               </el-form-item>
             </el-col>
@@ -36,7 +36,7 @@
                 <el-select
                   v-model="state.form.data.roleId"
                   placeholder="請選擇用戶角色"
-                  :disabled="!canEdit || route.path.includes('1')"
+                  :disabled="!canEdit"
                   clearable
                   class="w-full">
                   <el-option
@@ -55,12 +55,11 @@
                 label="啟用狀態"
                 prop="status"
                 :error="state.form.errors?.status"
-                clearable
                 class="custom-input-bg-style">
                 <div class="flex items-center gap-x-3">
                   <el-switch
                     v-model="state.form.data.status"
-                    :disabled="!canEdit || route.path.includes('1')"
+                    :disabled="!canEdit"
                     :active-value="true"
                     :inactive-value="false" />
                 </div>

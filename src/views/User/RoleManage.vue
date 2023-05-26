@@ -1,5 +1,8 @@
 <template>
-  <FormManage @on-submit="actions.handleSubmit" title="用戶權限">
+  <FormManage
+    @on-submit="actions.handleSubmit"
+    :disable="route.path.includes('1')"
+    title="用戶權限">
     <template #form>
       <el-form
         ref="ruleFormRef"
@@ -35,6 +38,7 @@
                   v-model="state.form.data.role"
                   :options="state.selectOptions?.permissions"
                   children="children"
+                  :disabled="!canEdit"
                   :show-all-levels="false"
                   :placeholder="canEdit ? '請選擇權限功能' : '尚未選擇'"
                   @on-change="actions.handleCascaderNest" />
@@ -43,7 +47,10 @@
             <!-- 備註 -->
             <el-col :span="24">
               <el-form-item label="備註" prop="remark">
-                <el-input v-model="state.form.data.remark" class="custom-input-bg-style"></el-input>
+                <el-input
+                  v-model="state.form.data.remark"
+                  :disabled="!canEdit"
+                  class="custom-input-bg-style"></el-input>
               </el-form-item>
             </el-col>
           </el-row>

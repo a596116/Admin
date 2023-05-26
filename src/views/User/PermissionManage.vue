@@ -1,5 +1,8 @@
 <template>
-  <FormManage @on-submit="actions.handleSubmit" title="用戶權限">
+  <FormManage
+    @on-submit="actions.handleSubmit"
+    :disable="route.path.includes('5')"
+    title="用戶權限">
     <template #form>
       <el-form
         ref="ruleFormRef"
@@ -32,7 +35,10 @@
                 </template>
                 <!-- 備註 -->
                 <template #remark="scope">
-                  <el-input v-model="scope.row.remark" class="custom-input-bg-style"></el-input>
+                  <el-input
+                    v-model="scope.row.remark"
+                    :disabled="!canEdit"
+                    class="custom-input-bg-style"></el-input>
                 </template>
                 <!-- 創建者 -->
                 <template #creator="scope">
