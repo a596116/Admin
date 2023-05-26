@@ -3,13 +3,12 @@
     <button
       v-if="hasValid"
       v-permission="{
-        currentTag: `${tag}`,
-        path: `${String(route.name)}`,
+        currentTag: root ? 'root' : tag,
         effect: 'disabled',
       }"
       :size="size || defaultSize"
       :loading="loading"
-      :disabled="isDisabled"
+      :disabled="disabled"
       class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-primary disabled:cursor-not-allowed disabled:opacity-30"
       @click="emit('on-submit')">
       <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>
@@ -27,16 +26,15 @@
     <button
       v-if="hasValid"
       v-permission="{
-        currentTag: `${tag}`,
-        path: `${String(route.name)}`,
+        currentTag: root ? 'root' : tag,
         effect: 'disabled',
       }"
       :size="size || defaultSize"
       :loading="loading"
-      :disabled="isDisabled"
+      :disabled="disabled"
       class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-primary hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
       :class="{
-        'text-custom-gray-100': tag === 'delete',
+        'text-custom-gray-900': tag === 'delete',
       }"
       @click="emit('on-submit')">
       <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>
@@ -53,7 +51,6 @@
 </template>
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es'
-import { useRoute } from 'vue-router'
 
 const emit = defineEmits(['on-submit'])
 const props = defineProps({
@@ -61,10 +58,9 @@ const props = defineProps({
   size: { type: String, default: '' },
   loading: { type: Boolean, default: false },
   hasValid: { type: Boolean, default: true },
-  isDisabled: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  root: { type: Boolean, default: false },
 })
-
-const route = useRoute()
 const buttonMap = {
   print: {
     content: '列印',

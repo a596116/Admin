@@ -6,7 +6,7 @@
     :columns="state.table.columns"
     :action-buttons="['create']"
     :showHeader="false"
-    :row-buttons="['edit', 'delete']"
+    :show-action-col="true"
     @on-change="actions.handleFetchAll"
     @on-command="actions.handleCommand"
     @on-row-action-command="actions.handleRowActionCommand">
@@ -15,6 +15,19 @@
       <TableCellLink
         :value="scope.row.name"
         @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
+    </template>
+
+    <template #action="scope">
+      <!-- 編輯 -->
+      <ButtonTipPermission
+        :root="scope.row.name == 'root' ? true : false"
+        type="edit"
+        @on-submit="actions.handleRoutePush(`edit/${scope.row.id}`)" />
+
+      <!-- 刪除 -->
+      <ButtonTipPermission
+        type="delete"
+        @on-submit="actions.handleDeleteConfirm(scope.row.id, scope.row.name)" />
     </template>
   </DefaultTable>
 </template>

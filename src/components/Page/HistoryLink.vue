@@ -7,13 +7,17 @@
         :to="{ name: link.route }"
         v-for="(link, index) in menuStore.historyMenus"
         :key="index"
-        class="box-border flex px-2 py-1 text-sm duration-300 border rounded-lg shadow-sm hover:bg-hd-Color to-gray-600 group"
+        class="box-border flex items-center px-2 py-1 text-sm duration-300 border rounded-lg shadow-sm hover:bg-hd-Color group"
         :class="{
           'bg-hd-Color text-white': route.name === link.route,
-          'bg-white': route.name !== link.route,
+          'bg-white text-hd-Text': route.name !== link.route,
         }"
-        @click.middle="menuStore.removeHistoryMenu(link)">
-        <Anchor :to="link.route" :text="link.title" class="group-hover:text-white" />
+        @click.stop.middle.prevent="menuStore.removeHistoryMenu(link)">
+        <Anchor :to="{ name: link.route }" :text="link.title" class="group-hover:text-white" />
+        <svg-icon
+          name="close"
+          class="w-4 h-4 ml-1 duration-150 cursor-pointer hover:text-hd-HoverColor"
+          @click="menuStore.removeHistoryMenu(link)"></svg-icon>
       </div>
     </div>
   </main>
@@ -23,7 +27,6 @@
 import { useMenuStore } from '@/stores/menuStore'
 const menuStore = useMenuStore()
 const route = useRoute()
-console.log(route.name)
 </script>
 
 <style scoped lang="scss">

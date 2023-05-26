@@ -8,7 +8,7 @@
         <section
           @click="menuStore.toggleMenu"
           :class="{ 'rotate-180': menuStore.isMenuCollapse }"
-          class="mr-3 text-xl duration-200 cursor-pointer hover:-translate-y-1 hover:text-hd-HoverColor">
+          class="mr-3 text-xl duration-200 cursor-pointer hover:scale-105 hover:text-hd-HoverColor">
           <svg-icon name="collapse"></svg-icon>
         </section>
       </div>

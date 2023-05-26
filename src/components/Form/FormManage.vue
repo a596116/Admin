@@ -10,7 +10,11 @@
 
     <!-- footer -->
     <div class="sticky bottom-0 right-0 w-full mt-auto" style="z-index: 9">
-      <FooterFormManage v-if="showFooter" class="mt-auto" @on-submit="emit('on-submit')">
+      <FooterFormManage
+        v-if="showFooter"
+        class="mt-auto"
+        :disable="disable"
+        @on-submit="emit('on-submit')">
         <template #alert>
           <span class="px-3 text-sm tracking-widest text-red-400">{{ alertText }}</span>
         </template>
@@ -42,6 +46,7 @@ const props = defineProps({
   dialogData: { type: Object, default: {} },
   title: { type: String, default: '' },
   dialogVisible: { type: Boolean, default: false },
+  disable: { type: Boolean, default: false },
   showHeader: { type: Boolean, default: true },
   showFooter: { type: Boolean, default: true },
   alertText: { type: String, default: '' },

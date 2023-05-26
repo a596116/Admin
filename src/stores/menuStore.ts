@@ -28,7 +28,7 @@ export const useMenuStore = defineStore('menu', () => {
 
   const addHistoryMenu = (r: RouteLocationNormalized) => {
     if (!r.meta?.menu) return
-    if (r.meta?.menu.hidden) return
+    if (r.meta?.menu.hiddenHistory) return
     if (!isHistoryCollapse.value) return
     route.value = r.meta
     const menu: IMenu = { ...r.meta?.menu, route: r.name as string }
@@ -52,7 +52,7 @@ export const useMenuStore = defineStore('menu', () => {
   const getMenuByRoute = async (page: string) => {
     menus.value = router
       .getRoutes()
-      .filter((route) => route.meta.page?.name === page && !route.meta.menu?.hidden)
+      .filter((route) => route.meta.page?.name === page && !route.meta.menu?.hiddenMenu)
       .sort((a, b) => {
         return (a.meta.number!) - (b.meta.number!)
       })

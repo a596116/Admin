@@ -1,6 +1,7 @@
 interface Menu {
     title?: string,
-    hidden?: boolean,
+    hiddenMenu?: boolean,
+    hiddenHistory?: boolean,
     icon?: string,
     isClick?: boolean,
     route?: string,

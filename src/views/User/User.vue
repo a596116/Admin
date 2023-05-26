@@ -7,7 +7,7 @@
     search-placeholder="搜尋用戶"
     label-text-date-range="註冊日期"
     :action-buttons="['search-date-range']"
-    :row-buttons="['edit']"
+    :show-action-col="true"
     @on-change="actions.handleFetchAll"
     @search-keyword="actions.handleFetchAll(false)"
     @on-row-action-command="actions.handleRowActionCommand">
@@ -23,6 +23,14 @@
       <TableCellLink
         :value="scope.row.UserRole[0].role.name"
         @cell-click="actions.handleCellClick({ cell: 'permissions', row: scope.row })" />
+    </template>
+
+    <template #action="scope">
+      <!-- 編輯 -->
+      <ButtonTipPermission
+        :root="scope.index == 0 ? true : false"
+        type="edit"
+        @on-submit="actions.handleRoutePush(`edit/${scope.row.id}`)" />
     </template>
   </DefaultTable>
 </template>

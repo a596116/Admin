@@ -3,7 +3,7 @@
     <el-tooltip effect="dark" content="主題" placement="bottom-end">
       <svg-icon
         name="setting"
-        class="w-6 h-6 duration-200 cursor-pointer hover:-translate-y-1 hover:text-hd-HoverColor"
+        class="w-6 h-6 duration-200 cursor-pointer hover:scale-105 hover:text-hd-HoverColor"
         @click="themeSettingDrawer = true"></svg-icon>
     </el-tooltip>
     <el-drawer v-model="themeSettingDrawer" title="Theme Setting" :with-header="false" :size="300">

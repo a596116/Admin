@@ -26,6 +26,7 @@
           size="large"
           class="w-2/3 lg:w-2/5 lg:max-w-[120px]"
           auto-insert-space
+          :disabled="disable"
           @click="emit('on-submit')">
           確定
         </el-button>
@@ -40,6 +41,7 @@ const route = useRoute()
 const props = defineProps({
   editAble: { type: Boolean, default: false },
   isSinglePage: { type: Boolean, default: false },
+  disable: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['on-submit', 'update:editAble', 'on-cancel'])
@@ -70,7 +72,7 @@ const actions = {
         router.back()
       } else {
         console.log('err')
-        // router.replace({ path: currentBreadcrumb.value.path })
+        router.replace({ path: '/' })
       }
     }
   },

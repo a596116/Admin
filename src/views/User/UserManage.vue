@@ -1,5 +1,8 @@
 <template>
-  <FormManage @on-submit="actions.handleSubmit" title="用戶權限">
+  <FormManage
+    @on-submit="actions.handleSubmit"
+    :disable="route.path.includes('1')"
+    title="用戶權限">
     <template #form>
       <el-form
         ref="ruleFormRef"
@@ -18,7 +21,7 @@
                 <el-input
                   v-model="state.form.data.name"
                   placeholder="輸入用戶名稱"
-                  :disabled="!canEdit"
+                  :disabled="!canEdit || route.path.includes('1')"
                   class="custom-input-bg-style"></el-input>
               </el-form-item>
             </el-col>
@@ -33,6 +36,7 @@
                 <el-select
                   v-model="state.form.data.roleId"
                   placeholder="請選擇用戶角色"
+                  :disabled="!canEdit || route.path.includes('1')"
                   clearable
                   class="w-full">
                   <el-option
@@ -56,7 +60,7 @@
                 <div class="flex items-center gap-x-3">
                   <el-switch
                     v-model="state.form.data.status"
-                    :disabled="!canEdit"
+                    :disabled="!canEdit || route.path.includes('1')"
                     :active-value="true"
                     :inactive-value="false" />
                 </div>
