@@ -14,6 +14,7 @@
         v-if="showFooter"
         class="mt-auto"
         :disable="disable"
+        :is-single-page="isSinglePage"
         @on-submit="emit('on-submit')">
         <template #alert>
           <span class="px-3 text-sm tracking-widest text-red-400">{{ alertText }}</span>
@@ -50,6 +51,7 @@ const props = defineProps({
   showHeader: { type: Boolean, default: true },
   showFooter: { type: Boolean, default: true },
   alertText: { type: String, default: '' },
+  isSinglePage: { type: Boolean, default: false },
 })
 
 // ----------- emits -----------

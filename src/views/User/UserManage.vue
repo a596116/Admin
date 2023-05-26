@@ -91,7 +91,6 @@ const state = reactive({
       name: [{ required: true, message: '角色名稱為必填欄位', trigger: 'blur' }],
     },
   },
-  dialogResultVisible: false,
   selectOptions: <any>{},
 })
 

@@ -11,7 +11,7 @@
         </div>
 
         <el-button
-          v-show="!isSinglePage || (isSinglePage && canEdit)"
+          v-show="!isSinglePage || (!isSinglePage && canEdit)"
           size="large"
           class="w-2/3 lg:w-2/5 lg:max-w-[120px]"
           text
@@ -51,7 +51,8 @@ const canEdit = computed(() => {
     props.editAble ||
     route.path.includes('create') ||
     route.path.includes('edit') ||
-    route.name === 'inventory_take-take'
+    route.name === 'admin/member/info' ||
+    route.name === 'admin/member/password'
   )
 })
 

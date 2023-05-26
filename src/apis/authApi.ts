@@ -50,7 +50,7 @@ class authApi {
     return http.request({
       url: 'auth/register',
       method: 'post',
-      data: { ...userForm, status: true, avatar: '0' }
+      data: { ...userForm, status: true, avatar: '0', gender: 'other', birthday: '2000-01-01' },
     })
   }
 
@@ -101,14 +101,11 @@ class authApi {
     })
   }
 
-  uploadAvatar(data: FormData, folder: string, id: string) {
+  update(data: any) {
     return http.request({
-      url: `data/upload/${folder}/${id}`,
-      method: 'post',
+      url: `auth/info/${data.id}`,
+      method: 'put',
       data,
-      headers: {
-        'content-type': 'multipart/form-data',
-      },
     })
   }
 

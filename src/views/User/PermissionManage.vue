@@ -1,7 +1,7 @@
 <template>
   <FormManage
     @on-submit="actions.handleSubmit"
-    :disable="route.path.includes('5')"
+    :disable="route.path.includes('1')"
     title="用戶權限">
     <template #form>
       <el-form
@@ -100,7 +100,6 @@ const state = reactive({
     { label: '備註', prop: 'remark', formatter: true },
     { label: '創建者', prop: 'creator', formatter: true },
   ],
-  dialogResultVisible: false,
 })
 
 const canEdit = computed(() => {

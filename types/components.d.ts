@@ -24,6 +24,7 @@ declare module '@vue/runtime-core' {
     ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
     ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDrawer: typeof import('element-plus/es')['ElDrawer']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -38,6 +39,8 @@ declare module '@vue/runtime-core' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElRadio: typeof import('element-plus/es')['ElRadio']
+    ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     ElSelect: typeof import('element-plus/es')['ElSelect']
@@ -47,6 +50,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElUpload: typeof import('element-plus/es')['ElUpload']
     FooterFormManage: typeof import('./../src/components/Footer/FooterFormManage.vue')['default']
     FormLogin: typeof import('./../src/components/Form/FormLogin.vue')['default']
     FormManage: typeof import('./../src/components/Form/FormManage.vue')['default']
@@ -62,6 +66,8 @@ declare module '@vue/runtime-core' {
     SvgIcon: typeof import('./../src/components/Global/SvgIcon.vue')['default']
     TableCellLink: typeof import('./../src/components/Table/TableCellLink.vue')['default']
     ThemeSetting: typeof import('./../src/components/Page/navbar/ThemeSetting.vue')['default']
+    UploadImage: typeof import('./../src/components/upload/UploadImage.vue')['default']
+    UploadProductImageList: typeof import('./../src/components/upload/UploadProductImageList.vue')['default']
     UserInfo: typeof import('./../src/components/Page/navbar/UserInfo.vue')['default']
   }
   export interface ComponentCustomProperties {

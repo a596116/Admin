@@ -149,7 +149,7 @@
         </template>
         <template v-if="type == 'image'" #default="scope">
           <el-image
-            :src="scope.row[prop] && '/logo.png'"
+            :src="scope.row[prop] !== '0' ? scope.row[prop] : '/logo.png'"
             fit="cover"
             class="max-w-[70px]"></el-image>
         </template>

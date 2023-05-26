@@ -45,7 +45,7 @@ const state = reactive({
     data: <IUser[]>[],
     columns: <TableColumns[]>[],
     current: 1,
-    take: 2,
+    take: 5,
     total: 1,
     sort: 'created_at-asc',
     message: '',
