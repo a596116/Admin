@@ -26,7 +26,7 @@
           size="large"
           class="w-2/3 lg:w-2/5 lg:max-w-[120px]"
           auto-insert-space
-          v-permission="!disable ? { currentTag: 'root', effect: 'disabled' } : {}"
+          v-permission="disable ? { currentTag: 'root', effect: 'disabled' } : null"
           @click="emit('on-submit')">
           確定
         </el-button>
