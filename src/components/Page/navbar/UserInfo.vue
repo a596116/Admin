@@ -4,10 +4,10 @@
       <div class="flex items-center justify-center w-full duration-200 hover:scale-105">
         <el-image
           :src="userStore.user?.avatar !== '0' ? userStore.user?.avatar : '/logo.png'"
-          class="object-cover w-8 h-8 rounded-full logo1"
-          fit="contain"
+          class="w-8 h-8 rounded-full logo1"
+          fit="cover"
           :lazy="true" />
-        <span class="w-full mx-2 text-base text-hd-black">
+        <span class="mx-2 text-base text-hd-black">
           {{ userStore.user?.name }}
         </span>
       </div>
