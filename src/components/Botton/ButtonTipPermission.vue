@@ -9,7 +9,10 @@
       :size="size || defaultSize"
       :loading="loading"
       :disabled="disabled"
-      class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-primary disabled:cursor-not-allowed disabled:opacity-30"
+      class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-hd-white disabled:cursor-not-allowed disabled:opacity-30"
+      :class="{
+        'text-custom-red-400': tag === 'delete',
+      }"
       @click="emit('on-submit')">
       <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>
     </button>
@@ -32,9 +35,9 @@
       :size="size || defaultSize"
       :loading="loading"
       :disabled="disabled"
-      class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-primary hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
+      class="flex h-[24px] w-[24px] cursor-pointer items-center texhdw justify-center rounded-full border-primary text-hd-white hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
       :class="{
-        'text-custom-gray-900': tag === 'delete',
+        'text-hd-danger': tag === 'delete',
       }"
       @click="emit('on-submit')">
       <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>

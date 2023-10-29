@@ -1,3 +1,7 @@
+.el-menu {
+  --el-menu-base-level-padding: 14px !important;
+}
+
 .el-menu,
 .el-menu * {
   background-color: var(--hd-bg-1) !important;
@@ -5,6 +9,9 @@
 
 .el-menu--popup {
   min-width: 120px;
+  * {
+    color: var(--hd-white-50) !important;
+  }
 }
 
 .el-menu--collapse .el-sub-menu__icon-arrow {

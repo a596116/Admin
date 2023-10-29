@@ -23,15 +23,15 @@ const menuStore = useMenuStore()
 
 <style lang="scss" scoped>
 .el-breadcrumb__inner {
-  color: var(--hd-text) !important;
+  color: var(--hd-white) !important;
 }
 
 .el-breadcrumb__inner.is-link {
-  color: var(--hd-hover-text) !important;
+  color: var(--hd-white) !important;
 }
 
 .el-breadcrumb__inner.is-link:hover {
-  color: var(--hd-hover-color) !important;
+  color: var(--hd-primary-hover) !important;
 }
 :deep(.el-breadcrumb__item) {
   height: 24px !important;

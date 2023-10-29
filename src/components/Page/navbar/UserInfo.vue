@@ -7,14 +7,14 @@
           class="w-8 h-8 rounded-full logo1"
           fit="cover"
           :lazy="true" />
-        <span class="mx-2 text-base text-hd-black">
+        <span class="mx-2 text-base text-hd-white-50">
           {{ userStore.user?.name }}
         </span>
       </div>
       <template #dropdown>
         <el-dropdown-menu class="px-1 py-3">
           <el-dropdown-item
-            class="text-hd-black hover:!text-hd-theme-color"
+            class="text-hd-black hover:!text-hd-primary-hover"
             @click="router.push({ name: 'admin/member/info' })">
             <svg-icon name="user"></svg-icon>
             會員訊息
@@ -25,7 +25,7 @@
                         設定
                     </el-dropdown-item> -->
           <el-dropdown-item
-            class="text-hd-black hover:!text-hd-theme-color"
+            class="text-hd-black hover:!text-hd-primary-hover"
             @click="userStore.logout">
             <svg-icon name="logout"></svg-icon>
             退出登入

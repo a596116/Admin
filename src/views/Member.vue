@@ -1,5 +1,5 @@
 <template>
-  <main class="flex h-full p-6">
+  <main class="flex h-full p-2">
     <UploadImage
       v-model:list="state.form.data.avatar"
       :max="1"

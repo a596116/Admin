@@ -2,25 +2,27 @@ import { http } from '@/plugins/axios'
 
 export interface IRegisterUser {
   name: string
-  phone: string
+  account: string
   password: string
   token?: string
+  captcha?: string
 }
 export interface ILoginUser {
-  phone: string
+  account: string
   password: string
+  rememberMe?: boolean
 }
 
 export interface IAlterUser {
   id: string
   name: string
-  phone: string
+  account: string
   password: string
   avatar: string
 }
 
 export interface IAlterUserPassword {
-  phone: string
+  account: string
   password: string
   newPassword: string
 }

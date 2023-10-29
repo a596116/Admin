@@ -5,6 +5,10 @@
 @use './custom/messageBox.scss' as *;
 @use './custom/dropDown.scss' as *;
 @use './custom/menu.scss' as *;
+@use './custom/dialog.scss' as *;
+@use './custom/notification.scss' as *;
+@use './custom/tag.scss' as *;
+@use './custom/breadcrumb.scss' as *;
 
 @import './custom/button.scss';
 $colors: (
@@ -29,15 +33,35 @@ $colors: (
 );
 
 :root {
-  --hd-color: #bfccb5;
-  --hd-hover-color: #adbb9b;
-  --hd-click-color: #aac8a7;
+  --hd-primary: #bfccb5;
+  --hd-primary-hover: #adbb9b;
+  --hd-primary-active: #aac8a7;
+  --hd-secondary: #6c757d;
+  --hd-success: #52c980;
+  --hd-danger: #d14654;
+  --hd-warning: #ffeeb3;
+  --hd-info: #45bbcd;
+  --hd-light: #f8f9fa;
   --hd-text: #3c486b;
-  --hd-hover-text: #2c344f;
-  --hd-yellow: #ffeeb3;
-  --hd-bg: #f8f9fa;
-  --hd-bg-1: #ebf0f3;
+  --hd-text-50: #2c344f;
+  --hd-dark: #343a40;
+  --hd-dark-50: #4b535b;
+  --hd-white: #ffffff;
+  --hd-white-50: #ffffffb5;
   --hd-disable: #e7e7e7;
+  --hd-border: #dfdfdf;
+  --hd-bg: #101110;
+  --hd-bg-1: #242424;
+  // font
+  --font-h1: 40px;
+  --font-h2: 32px;
+  --font-h3: 28px;
+  --font-h4: 24px;
+  --font-h5: 20px;
+  --font-h6: 16px;
+  --font-blockquote: 20px;
+  --font-body: 16px;
+  --font-samll: 14px;
 
   // 變更 element plus 主色
   --el-color-primary: #bfccb5 !important;
@@ -45,8 +69,8 @@ $colors: (
   --blue-primary-100: #e3f1ff !important;
   --blue-primary-400: #464f5e !important;
   --blue-primary-500: #aac8a7 !important;
-  --table-row-bg: #bfccb5 !important;
-  --table-expand-row-bg: #f8fbff !important;
+  --table-row-bg: #101110 !important;
+  --table-expand-row-bg: #101110 !important;
   --table-expand-hover-row-bg: #c8c8c8 !important;
   --search-input-bg: rgba(232, 240, 254, 0.6) !important;
   --form-input-bg: #cfd4d785 !important;
@@ -62,6 +86,7 @@ $colors: (
   --el-disabled-bg-color: #ececec !important;
   --el-menu-hover-bg-color: none !important;
   --el-menu-hover-text-color: #c9dbb2 !important;
+  --el-bg-color-overlay: #242424 !important;
 }
 
 .center {

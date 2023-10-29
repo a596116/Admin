@@ -23,19 +23,19 @@ const to = toRef(props, 'to')
   <RouterLink
     v-if="to"
     :to="to"
-    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-HoverText">
+    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-text-50">
     <slot>{{ text }}</slot>
   </RouterLink>
   <a
     v-else-if="href"
-    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-HoverText"
+    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-text-50"
     :href="href"
     target="_blank">
     <slot>{{ text }}</slot>
   </a>
   <span
     v-else
-    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-HoverText"
+    class="transition-colors duration-150 outline-none cursor-pointer hover:text-hd-primary-hover"
     >{{ text }}</span
   >
 </template>

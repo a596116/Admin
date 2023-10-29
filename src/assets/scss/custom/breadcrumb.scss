@@ -1,0 +1,6 @@
+.el-breadcrumb {
+  --el-text-color-regular: var(--hd-white-50) !important;
+  .el-breadcrumb__inner.is-link {
+    color: var(--hd-primary-active) !important;
+  }
+}

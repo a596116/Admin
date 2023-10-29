@@ -92,7 +92,7 @@
         :auto-upload="false"
         :on-change="actions.handleUpload">
         <template #trigger>
-          <div class="flex items-center justify-center w-full h-full">
+          <div class="flex items-center justify-center w-full h-full text-hd-dark">
             <svg-icon name="plus"></svg-icon>
           </div>
         </template>

@@ -1,7 +1,7 @@
 <template>
   <DefaultTable
     ref="refTable"
-    class="p-4"
+    class="p-2"
     v-model:table-data="state.table"
     :columns="state.table.columns"
     :action-buttons="['create']"

@@ -3,10 +3,15 @@
     <el-tooltip effect="dark" content="主題" placement="bottom-end">
       <svg-icon
         name="setting"
-        class="w-6 h-6 duration-200 cursor-pointer hover:scale-105 hover:text-hd-HoverColor"
+        class="w-6 h-6 duration-200 cursor-pointer hover:scale-105 hover:text-hd-primary-hover"
         @click="themeSettingDrawer = true"></svg-icon>
     </el-tooltip>
-    <el-drawer v-model="themeSettingDrawer" title="Theme Setting" :with-header="false" :size="300">
+    <el-drawer
+      v-model="themeSettingDrawer"
+      title="Theme Setting"
+      :with-header="false"
+      :size="300"
+      class="bg-hd-bg-1">
       <div class="flex flex-col justify-center p-8 text-lg">
         <span class="m-auto mb-3">主題設定</span>
         <!-- <div class="my-5">
@@ -16,23 +21,21 @@
             :predefine="themeColorList"
             @active-change="changeThemeColor" />
         </div> -->
-        <div class="hidden my-5 md:block">
+        <div class="my-5">
           <span class="mx-3">麵包屑</span>
           <el-switch
             v-model="menuStore.isBreadcrumbCollapse"
             class="ml-2"
-            active-color="#6BDBED"
             active-text="開"
             inactive-text="關"
             @change="menuStore.toggleBreadcrumb"
             size="large" />
         </div>
-        <div class="hidden my-5 md:block">
+        <div class="my-5">
           <span class="mx-3">歷史紀錄</span>
           <el-switch
             v-model="menuStore.isHistoryCollapse"
             class="ml-2"
-            active-color="#6BDBED"
             active-text="開"
             inactive-text="關"
             @change="menuStore.toggleHistoryLink"
@@ -63,3 +66,11 @@ const changeThemeColor = (color: string): void => {
   el1.style.setProperty('--hd-theme-hover-color', color + '80')
 }
 </script>
+<style scoped lang="scss">
+:deep(.el-switch__label) {
+  @apply text-hd-white-50;
+}
+:deep(.el-switch__label.is-active) {
+  @apply text-hd-primary-active;
+}
+</style>

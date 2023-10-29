@@ -1,7 +1,7 @@
 <template>
   <DefaultTable
     ref="refTable"
-    class="p-4"
+    class="p-2"
     v-model:table-data="state.table"
     :columns="state.table.columns"
     search-placeholder="搜尋用戶"
@@ -68,7 +68,7 @@ const actions = {
     api.userApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
         { label: '名稱', prop: 'name', align: 'center', formatter: true },
-        { label: '手機號', prop: 'phone', width: 120 },
+        { label: '帳號', prop: 'account', width: 120 },
         { label: '狀態', prop: 'status', width: 80, type: 'status' },
         { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
         { label: '頭像', prop: 'avatar', align: 'center', type: 'image' },

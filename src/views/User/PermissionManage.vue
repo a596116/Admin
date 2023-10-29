@@ -85,7 +85,7 @@ const state = reactive({
   dialogRadioTableVisible: false,
   form: {
     data: <any>{
-      lists: { data: [{ creator: `${userStore.user?.name}-${userStore.user?.phone}` }] },
+      lists: { data: [{ creator: `${userStore.user?.name}-${userStore.user?.account}` }] },
     },
     errors: <any>{},
     rules: <FormRules>{
@@ -224,7 +224,9 @@ const actions = {
   handleDeletePermission: (row: any, index: number, type: string) => {
     state.form.data.lists.data.splice(index, 1)
     if (isEmpty(state.form.data.lists.data)) {
-      state.form.data.lists.data = [{ creator: `${userStore.user?.name}-${userStore.user?.phone}` }]
+      state.form.data.lists.data = [
+        { creator: `${userStore.user?.name}-${userStore.user?.account}` },
+      ]
     }
   },
 
@@ -253,7 +255,7 @@ const actions = {
     const isChecked = actions.handleCheckList([last(state.form.data.lists.data)])
     if (!isChecked) return
     state.form.data.lists.data.push({
-      creator: `${userStore.user?.name}-${userStore.user?.phone}`,
+      creator: `${userStore.user?.name}-${userStore.user?.account}`,
     })
   },
 }

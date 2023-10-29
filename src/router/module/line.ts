@@ -17,7 +17,7 @@ export default {
       path: 'lineUser/',
       component: () => import('@/views/Line/LineUser.vue'),
       meta: {
-        menu: { title: 'Line用戶' },
+        menu: { title: '用戶' },
         permission: 'view',
         number: 3,
       },
@@ -49,7 +49,7 @@ export default {
       path: 'nike/',
       component: () => import('@/views/Line/Nike.vue'),
       meta: {
-        menu: { title: 'Nike發售預告' },
+        menu: { title: 'Nike' },
         permission: 'view',
         number: 3,
       },
@@ -81,7 +81,7 @@ export default {
       path: 'hypebeast/',
       component: () => import('@/views/Line/HypeBeast.vue'),
       meta: {
-        menu: { title: 'HypeBeast球鞋資訊' },
+        menu: { title: 'HypeBeast' },
         permission: 'view',
         number: 3,
       },

@@ -4,18 +4,19 @@ export function tableStyle(props?: any) {
       header: () => {
         return {
           letterSpacing: '.4em',
-          backgroundColor: '#ebf0f3',
+          backgroundColor: '#101110',
           fontWeight: 500,
         }
       },
       row: () => {
         return {
-          backgroundColor: '#ebf0f3',
+          backgroundColor: '#101110',
+          color: '#fff',
           fontSize: '14px',
           height: '60px',
         }
       },
-      tableRowClassName: ({ row, rowIndex }: { row: any, rowIndex: number }) => {
+      tableRowClassName: ({ row, rowIndex }: { row: any; rowIndex: number }) => {
         if (row.id == 'total') {
           return 'row-bg--total'
         }
@@ -23,7 +24,7 @@ export function tableStyle(props?: any) {
           return 'row-bg-alert'
         }
       },
-      tableColClassName: ({ row, column }: { row: any, column: any }) => {
+      tableColClassName: ({ row, column }: { row: any; column: any }) => {
         const hightLightText = 'name'
         const cellLinks = props?.cellLinks || []
         const redCols = props?.redCols || []
@@ -52,7 +53,7 @@ export function tableStyle(props?: any) {
       header: () => {
         return {
           letterSpacing: '.4em',
-          backgroundColor: '#E9F6FC',
+          backgroundColor: '#101110',
           fontWeight: 500,
         }
       },
@@ -61,7 +62,7 @@ export function tableStyle(props?: any) {
           fontSize: '12px',
         }
       },
-      tableRowClassName: ({ row, rowIndex }: { row: any, rowIndex: number }) => {
+      tableRowClassName: ({ row, rowIndex }: { row: any; rowIndex: number }) => {
         if (props?.alertRow.includes(rowIndex)) {
           return 'row-bg-alert'
         }
@@ -69,7 +70,7 @@ export function tableStyle(props?: any) {
           return 'row-bg'
         }
       },
-      tableColClassName: ({ row, column }: { row: any, column: any }) => {
+      tableColClassName: ({ row, column }: { row: any; column: any }) => {
         const hightLightText = 'name'
         const cellLinks = props?.cellLinks || []
         const redCols = props?.redCols || []

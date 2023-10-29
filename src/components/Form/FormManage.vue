@@ -1,7 +1,7 @@
 <template>
-  <main class="relative mx-auto flex h-full p-6 max-w-[1500px] flex-col">
+  <main class="relative mx-auto flex h-full p-2 max-w-[1500px] flex-col">
     <!-- header -->
-    <header v-if="showHeader" class="flex px-4 py-2 mb-4 border-b text-hd-text">
+    <header v-if="showHeader" class="flex px-4 py-2 mb-4 border-b text-hd-white">
       <el-button type="default" @click="handleGoBack">
         <svg-icon name="arrow-left"></svg-icon>
       </el-button>

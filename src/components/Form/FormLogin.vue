@@ -1,34 +1,45 @@
 <template>
   <div>
-    <el-form ref="FormRef" :model="model" :rules="rules" class="form">
+    <el-form ref="FormRef" :model="model" :rules="rules" label-position="top">
       <h1>{{ title }}</h1>
-      <el-form-item v-for="f of fields" :key="f.name" :prop="f.name">
+      <el-form-item
+        v-for="f of fields"
+        :key="f.name"
+        :prop="f.name"
+        :label="f.title"
+        class="mt-[34px]">
         <el-input
           v-if="f.name !== 'captcha'"
           v-model.trim="model[f.name]"
           :placeholder="f.placeholder"
           clearable
+          autocomplete="new-password"
           :show-password="f.type == 'password'"
-          :type="f.type"
-          @keyup.enter="submitForm(FormRef)"
-          class="mt-[20px]" />
-        <div v-else class="flex items-center justify-center w-full mt-[20px]">
+          @keyup.enter="emit('submit', FormRef)">
+          <template v-if="f.icon" #prefix>
+            <svg-icon :name="f.icon" class="text-hd-white"></svg-icon>
+          </template>
+        </el-input>
+        <div v-else class="flex items-center w-full">
           <el-input
             v-model.trim="model[f.name]"
             :placeholder="f.placeholder"
             clearable
             maxlength="4"
-            @keyup.enter="submitForm(FormRef)"
+            @keyup.enter="emit('submit', FormRef)"
             class="!w-1/2" />
-          <div v-html="captcha.img" @click="getNewCaptcha(captcha.id)" class="w-1/2"></div>
+          <div
+            v-html="captcha.img"
+            @click="getNewCaptcha(captcha.id)"
+            class="ml-4 rounded-md bg-slate-300"></div>
         </div>
       </el-form-item>
       <slot name="button"></slot>
       <el-form-item>
         <el-button
-          type="primary"
-          @click="submitForm(FormRef)"
-          class="relative mx-auto mt-[40px] rounded-[20px] px-[50px] py-[8px] font-black">
+          type="default"
+          @click="emit('submit', FormRef)"
+          class="relative mx-10 mt-[40px] w-full rounded-md bg-transparent px-[50px] py-[8px] font-black text-hd-white hover:text-hd-primary-hover">
           {{ type == 'login' ? '登入' : '註冊' }}
         </el-button>
       </el-form-item>
@@ -38,7 +49,6 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
-import { useAuthStore } from '@/stores/authStore'
 
 const props = defineProps<{
   fields: formColumnsType[]
@@ -48,11 +58,13 @@ const props = defineProps<{
   rules: any
 }>()
 
-const captcha = ref<any>({ id: '-1', img: '' })
+const emit = defineEmits(['submit'])
+
 onMounted(() => {
   getNewCaptcha()
 })
 
+const captcha = ref<any>({ id: '-1', img: '' })
 /**
  * 獲取驗證碼
  * @date 2022-08-28
@@ -66,65 +78,46 @@ const getNewCaptcha = (id?: string) => {
 
 const FormRef = ref<FormInstance>()
 
-const authStore = useAuthStore()
-/**
- * 提交表單
- * @date 2022-08-28
- */
-const submitForm = async (formEl: FormInstance | undefined) => {
-  if (props.type == 'login') {
-    await formEl?.validate((valid: boolean) => {
-      if (valid) {
-        authStore.login(props.model).then(() => {})
-      }
-    })
-  } else if (props.type == 'register') {
-    await formEl?.validate((valid: boolean) => {
-      if (valid) {
-        const cap = {
-          captcha: props.model.captcha,
-          id: captcha.value.id,
-        }
-        api.authApi.verify(cap).then((res) => {
-          if (res.code === 200) {
-            authStore.registUser(props.model).then(() => {})
-          }
-        })
-      }
-    })
-  }
-}
+defineExpose({
+  captcha,
+})
 </script>
 
 <style scoped lang="scss">
 :deep(.el-form) {
-  @apply relative h-full w-[100%] px-[30px] py-[40px] md:w-[340px];
+  @apply relative h-full w-[100%];
 
   h1 {
-    @apply relative mb-[40px] text-[24px] font-semibold text-hd-Text;
+    @apply relative mb-5 text-h3 font-semibold text-hd-white;
     letter-spacing: 1px;
-
-    &::before {
-      @apply absolute bottom-[-10px] left-0 h-[4px] w-[80px] bg-hd-Color content-[''];
-    }
   }
   .el-form-item.is-error .el-input {
-    box-shadow: 0 0 0 1px var(--el-color-danger) inset;
+    border-color: var(--el-color-danger);
+  }
+  .el-form-item.is-error .el-input__wrapper.is-focus {
+    box-shadow: none !important;
   }
   .el-input {
-    @apply w-full rounded-[35px] border-0 px-[20px] py-[10px] text-base outline-none;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-right: 1px solid rgba(255, 255, 255, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    letter-spacing: 1px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    @apply w-full rounded-md border px-[6px] py-[5px] text-base outline-none;
+    transition: all 0.2s;
+
+    &:focus {
+      @apply border-green-500;
+    }
 
     ::placeholder {
-      color: #3c486b !important;
+      color: rgb(227, 228, 234) !important;
     }
     :deep(.el-input__suffix-inner) {
       @apply text-green-500;
     }
+    &:has(.el-input__wrapper.is-focus) {
+      @apply border-hd-primary;
+    }
+  }
+  .el-form-item__label,
+  .el-input__inner {
+    @apply text-hd-white;
   }
 }
 </style>

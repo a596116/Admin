@@ -69,7 +69,7 @@ const state = reactive({
   dialogRadioTableVisible: false,
   form: {
     data: <any>{
-      creator: `${userStore.user?.name}-${userStore.user?.phone}`,
+      creator: `${userStore.user?.name}-${userStore.user?.account}`,
     },
     errors: <any>{},
     rules: <FormRules>{

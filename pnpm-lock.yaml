@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@vueuse/core':
     specifier: ^10.1.0
@@ -72,6 +76,9 @@ devDependencies:
   axios-retry:
     specifier: ^3.4.0
     version: 3.4.0
+  crypto-js:
+    specifier: ^4.2.0
+    version: 4.2.0
   dayjs:
     specifier: ^1.11.7
     version: 1.11.7
@@ -141,6 +148,9 @@ devDependencies:
   vue-tsc:
     specifier: ^1.2.0
     version: 1.2.0(typescript@4.8.4)
+  vue3-cookies:
+    specifier: ^1.0.6
+    version: 1.0.6
   vue3-lottie:
     specifier: ^2.7.0
     version: 2.7.0(vue@3.2.47)
@@ -896,6 +906,7 @@ packages:
 
   /@vue/compiler-core@3.3.4:
     resolution: {integrity: sha512-cquyDNvZ6jTbf/+x+AgM2Arrp6G4Dzbb0R64jiG804HRMfRiFXWI6kqUVqZ6ZR0bQhIoQjB4+2bhNtVwndW15g==}
+    requiresBuild: true
     dependencies:
       '@babel/parser': 7.21.9
       '@vue/shared': 3.3.4
@@ -938,6 +949,7 @@ packages:
 
   /@vue/compiler-ssr@3.3.4:
     resolution: {integrity: sha512-m0v6oKpup2nMSehwA6Uuu+j+wEwcy7QmwMkVNVfrV9P2qE5KshC6RwOCq8fjGS/Eak/uNb8AaWekfiXxbBB6gQ==}
+    requiresBuild: true
     dependencies:
       '@vue/compiler-dom': 3.3.4
       '@vue/shared': 3.3.4
@@ -1680,6 +1692,10 @@ packages:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
+    dev: true
+
+  /crypto-js@4.2.0:
+    resolution: {integrity: sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==}
     dev: true
 
   /css-functions-list@3.1.0:
@@ -5592,6 +5608,12 @@ packages:
       '@volar/vue-language-core': 1.2.0
       '@volar/vue-typescript': 1.2.0
       typescript: 4.8.4
+    dev: true
+
+  /vue3-cookies@1.0.6:
+    resolution: {integrity: sha512-a1UvVD0qIgxyOqjlSOwnLnqAnz8ASltugEv8yX+96i/WGZAN9fEDci7xO4HIWZE1uToUnRq9JnFhvfDCSo45OA==}
+    dependencies:
+      vue: 3.2.47
     dev: true
 
   /vue3-lottie@2.7.0(vue@3.2.47):

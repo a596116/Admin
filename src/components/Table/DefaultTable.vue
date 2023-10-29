@@ -62,7 +62,7 @@
           <section v-if="multipleSelection?.length > 0" class="flex items-center gap-x-3">
             <small class="tracking-widest font-base text-primary-dark-text">
               已選
-              <strong class="font-medium text-hd-Color">{{ multipleSelection?.length }}</strong>
+              <strong class="font-medium text-hd-primary">{{ multipleSelection?.length }}</strong>
               項
             </small>
 

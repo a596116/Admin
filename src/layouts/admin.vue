@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-container class="relative min-h-screen bg-hd-Bg-1">
+    <el-container class="relative min-h-screen bg-hd-Bg-1 text-hd-white-50">
       <!-- Menu -->
       <!-- <el-scrollbar class="z-[99]! !absolute md:!relative"> -->
       <Menu />
@@ -19,7 +19,7 @@
           </div>
 
           <main
-            class="relative mx-2 mb-2 overflow-y-auto rounded-lg bg-hd-Bg-1 main"
+            class="relative mx-2 mb-2 overflow-y-auto rounded-lg bg-hd-bg main"
             :class="{
               'mt-3': !menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse,
               'mt-6': menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse,
@@ -76,7 +76,7 @@ const closeMenu = () => {
   }
 }
 .main {
-  box-shadow: 0px 0px 14px #a7aaad;
+  // box-shadow: 0px 0px 14px #a7aaad;
 }
 // .main::-webkit-scrollbar {
 //   display: none;

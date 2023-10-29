@@ -1,5 +1,5 @@
 <template>
-  <footer class="z-10 w-full py-4 bg-hd-Bg-1">
+  <footer class="z-10 w-full py-4 bg-hd-bg">
     <div class="flex items-center justify-end">
       <div v-if="!canEdit" class="flex items-center justify-end px-2 gap-x-3">
         <slot name="actions"></slot>

@@ -7,7 +7,7 @@
     @apply absolute left-2 top-8  duration-200;
   }
   .el-form-item__label:has(+ .el-form-item__content .el-input__wrapper.is-focus) {
-    @apply top-1  text-hd-Color;
+    @apply text-hd-primary  top-1;
   }
   .el-form-item.is-error .el-input__wrapper {
     box-shadow: none !important;
@@ -20,7 +20,7 @@
     &:before,
     &:after {
       content: '';
-      @apply h-[2px] w-0 bottom-[0px] absolute bg-hd-Color;
+      @apply bg-hd-primary absolute bottom-[0px] h-[2px] w-0;
       transition: 0.2s ease all;
       -moz-transition: 0.2s ease all;
       -webkit-transition: 0.2s ease all;
@@ -51,7 +51,7 @@
         .el-input__wrapper
         .el-input__inner:not(:placeholder-shown)
     ) {
-    @apply top-2  text-hd-Color;
+    @apply text-hd-primary  top-2;
   }
 
   .el-input__inner::placeholder {
@@ -69,6 +69,9 @@
 .custom-form {
   .el-input__wrapper {
     box-shadow: 0 0 0 1px var(--el-input-border-color, var(--el-border-color)) inset !important;
+  }
+  .el-form-item__label {
+    color: var(--hd-white-50) !important;
   }
   .el-row {
     margin-left: 0px !important;
@@ -212,7 +215,7 @@
   .el-textarea__inner:focus,
   .el-input__wrapper.is-focus,
   .el-cascader .el-input.is-focus .el-input__wrapper {
-    box-shadow: 0px 0px 5px var(--hd-color) !important;
+    box-shadow: 0px 0px 5px var(--hd-primary) !important;
   }
 
   .el-form-item.is-error .el-input__wrapper {

@@ -56,7 +56,7 @@ export const useAuthStore = defineStore(
 
     const login = async (loginForm: ILoginUser) => {
       const auth = {
-        phone: loginForm.phone,
+        account: loginForm.account,
         password: loginForm.password,
       }
       await api.authApi
