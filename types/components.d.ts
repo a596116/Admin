@@ -67,7 +67,6 @@ declare module '@vue/runtime-core' {
     TableCellLink: typeof import('./../src/components/Table/TableCellLink.vue')['default']
     ThemeSetting: typeof import('./../src/components/Page/navbar/ThemeSetting.vue')['default']
     UploadImage: typeof import('./../src/components/upload/UploadImage.vue')['default']
-    UploadProductImageList: typeof import('./../src/components/upload/UploadProductImageList.vue')['default']
     UserInfo: typeof import('./../src/components/Page/navbar/UserInfo.vue')['default']
   }
   export interface ComponentCustomProperties {
