@@ -55,7 +55,12 @@ export default ({ command }: ConfigEnv): any => {
           target: process.env.VITE_BASEURL,
           changeOrigin: true,
           rewrite: (path: any) => path.replace(/^\/api/, ""),
-        }
+        },
+        '/upload': {
+          target: process.env.VITE_BASEURL,
+          changeOrigin: true,
+          rewrite: (path: any) => path.replace(/^\/upload/, ""),
+        },
       },
       cors: true,
     }
