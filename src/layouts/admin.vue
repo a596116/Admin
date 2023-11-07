@@ -2,14 +2,14 @@
   <div>
     <el-container class="relative min-h-screen bg-hd-Bg-1">
       <!-- Menu -->
-      <el-scrollbar class="z-[99]! !absolute md:!relative">
-        <Menu />
-      </el-scrollbar>
+      <!-- <el-scrollbar class="z-[99]! !absolute md:!relative"> -->
+      <Menu />
+      <!-- </el-scrollbar> -->
       <el-container class="relative grid min-h-full">
-        <div
+        <!-- <div
           class="mask md:hidden"
           @click="closeMenu"
-          :class="{ close: !menuStore.isMenuCollapse }"></div>
+          :class="{ close: !menuStore.isMenuCollapse }"></div> -->
         <div class="content grid w-full grid-rows-[auto_1fr] bg-cover bg-no-repeat bg-transparent">
           <div class="relative w-full bg-transparent">
             <NavBar />

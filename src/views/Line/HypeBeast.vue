@@ -63,9 +63,8 @@ const actions = {
     api.hypebeastApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
         { label: '標題', prop: 'title', align: 'center', formatter: true },
-        { label: '發售日期', prop: 'time', type: 'date' },
         { label: '圖片', prop: 'img', align: 'center', type: 'image' },
-        { label: '新增日期', prop: 'created_at', type: 'date' },
+        { label: '發布日期', prop: 'time', type: 'date' },
       ]
       const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result
       state.table = {

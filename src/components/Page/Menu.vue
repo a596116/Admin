@@ -4,6 +4,12 @@
     :default-active="active_menu"
     mode="vertical"
     class="admin-menu"
+    :class="{
+      'max-md:h-[calc(100vh-106px)]': !menuStore.isBreadcrumbCollapse,
+      'max-md:h-[calc(100vh-142px)]': menuStore.isBreadcrumbCollapse,
+      'max-md:mt-[98px]': !menuStore.isBreadcrumbCollapse,
+      'max-md:mt-[124px]': menuStore.isBreadcrumbCollapse,
+    }"
     :unique-opened="true">
     <div class="flex items-center justify-center w-full px-2 my-4 cursor-pointer">
       <svg-icon
@@ -40,6 +46,10 @@
       </el-menu-item>
     </div>
   </el-menu>
+  <div
+    v-if="menuStore.isMenuCollapse"
+    class="absolute top-0 left-0 z-10 w-full h-full bg-black/10 md:hidden"
+    @click="menuStore.toggleMenu"></div>
 </template>
 
 <script setup lang="ts">
@@ -67,7 +77,9 @@ watch(
 
 <style scoped lang="scss">
 .admin-menu {
-  @apply border-0 bg-transparent max-w-[130px] md:max-w-[200px] h-[calc(100vh-16px)] m-2 rounded-lg overflow-hidden;
+  // @apply border-0 bg-transparent max-w-[130px] md:max-w-[200px] h-[calc(100vh-16px)] m-2 rounded-lg overflow-hidden;
+  @apply left-0 top-0 z-50 mx-2 my-4 h-[calc(100vh-32px)] max-w-[130px] overflow-hidden rounded-md border-0
+        max-md:absolute  md:max-w-[220px];
   transition: width 0.3s ease-in-out;
   // box-shadow: 5px 5px 14px #a7aaad, -5px -5px 14px #ffffff;
   * {
@@ -103,9 +115,10 @@ watch(
   .form-container input::placeholder {
     color: #fff !important;
   }
-
-  .el-menu.el-menu--collapse {
-    @apply w-0;
+}
+@media (max-width: 768px) {
+  .el-menu--collapse {
+    width: 0px;
   }
 }
 :deep(.el-menu--collapse .el-sub-menu__icon-arrow) {
