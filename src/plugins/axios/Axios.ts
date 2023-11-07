@@ -15,11 +15,13 @@ export default class Axios {
     this.interceptors()
   }
 
-  public async request<T, D = T extends responseResult<T> ? responseResult<T> : responseData<T>>(config: AxiosRequestConfig): Promise<D> {
+  public async request<T, D = T extends responseResult<T> ? responseResult<T> : responseData<T>>(
+    config: AxiosRequestConfig,
+  ): Promise<D> {
     return new Promise(async (resolve, reject) => {
       try {
         const res = await this.instance.request<D>(config)
-        resolve(res.data)
+        resolve(res?.data)
       } catch (error) {
         reject(error)
       }
@@ -35,10 +37,12 @@ export default class Axios {
   private interceptorsRequest() {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig) => {
-        this.loading.push(ElLoading.service({
-          text: '加載中...',
-          background: 'rgba(0,0,0,0)'
-        }))
+        this.loading.push(
+          ElLoading.service({
+            text: '加載中...',
+            background: 'rgba(0,0,0,0)',
+          }),
+        )
         useErrorStore().resetError()
         config.headers = {
           Authorization: 'Bearer ' + storage.get(CacheEnum.TOKEN_NAME),
@@ -66,15 +70,15 @@ export default class Axios {
             duration: 2000,
           })
         }
-        this.loading.forEach(l => l.close())
+        this.loading.forEach((l) => l.close())
         return response
       },
       (error) => {
-        this.loading.forEach(l => l.close())
+        this.loading.forEach((l) => l.close())
         const {
           response: { status, data },
         } = error
-        const { messages }: { messages: { field: string, message: string }[] } = data
+        const { messages }: { messages: { field: string; message: string }[] } = data
         switch (status) {
           case HttpStatus.UNAUTHORIZED:
             storage.remove(CacheEnum.TOKEN_NAME)
@@ -103,7 +107,7 @@ export default class Axios {
             }
             return Promise.reject(error)
         }
-      }
+      },
     )
   }
 }

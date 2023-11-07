@@ -1,19 +1,21 @@
 import { http } from '@/plugins/axios'
-
+enum Api {
+  default = 'user/role',
+}
 class roleApi {
   /**
    * @description: 獲取權限列表
    */
   fetchAll(query: any) {
     return http.request<IUser[]>({
-      url: `user/role`,
+      url: `${Api.default}`,
       params: query,
     })
   }
 
   fetch(id: number) {
     return http.request<IRole>({
-      url: `user/role/${id}`,
+      url: `${Api.default}/${id}`,
     })
   }
 
@@ -22,29 +24,26 @@ class roleApi {
    */
   create(data: any) {
     return http.request({
-      url: `user/role/create`,
+      url: `${Api.default}`,
       method: 'post',
       data,
     })
   }
 
-
   update(data: any) {
     return http.request({
-      url: `user/role/${data.id}`,
+      url: `${Api.default}/${data.id}`,
       method: 'put',
       data,
     })
   }
 
-
   delete(id: number) {
     return http.request({
-      url: `user/role/${id}`,
-      method: 'DELETE'
+      url: `${Api.default}/${id}`,
+      method: 'DELETE',
     })
   }
-
 }
 
 export default new roleApi()

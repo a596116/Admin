@@ -70,8 +70,8 @@ onMounted(() => {
 
 const actions = {
   handleFetchAll: (showLoading = true) => {
-    const { current: page, take, sort, search_params } = state.table
-    const params = { page, take, sort, ...search_params }
+    const { current: current_page, take, sort, search_params } = state.table
+    const params = { current_page, take, sort, ...search_params }
     api.roleApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
         { label: '角色名稱', prop: 'name', align: 'center', width: 120, formatter: true },

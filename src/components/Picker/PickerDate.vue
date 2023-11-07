@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full lg:w-fit">
+  <div class="w-full">
     <h5 class="text-xs leading-6 tracking-widest text-gray-500">
       {{ labelText }}
     </h5>
@@ -11,7 +11,7 @@
       :clearable="true"
       :disabled="disabled"
       type="date"
-      class="w-full-date"
+      class="w-full w-full-date"
       value-format="YYYY-MM-DD"
       :placeholder="disabled ? null : `請選擇${labelText || '日期'}`"
       @change="actions.handleChange">

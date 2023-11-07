@@ -67,9 +67,9 @@ watch(
 
 <style scoped lang="scss">
 .admin-menu {
-  @apply border-0 bg-hd-Bg-1 max-w-[130px] md:max-w-[220px] h-[calc(100vh-32px)] m-4 rounded-lg overflow-hidden;
+  @apply border-0 bg-transparent max-w-[130px] md:max-w-[200px] h-[calc(100vh-16px)] m-2 rounded-lg overflow-hidden;
   transition: width 0.3s ease-in-out;
-  box-shadow: 5px 5px 14px #a7aaad, -5px -5px 14px #ffffff;
+  // box-shadow: 5px 5px 14px #a7aaad, -5px -5px 14px #ffffff;
   * {
     @apply bg-hd-Bg-1;
   }

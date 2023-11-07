@@ -7,7 +7,7 @@ import type { App } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
 })
 
 export const setupRouter = async (app: App) => {
@@ -17,6 +17,5 @@ export const setupRouter = async (app: App) => {
   guard(router)
   app.use(router)
 }
-
 
 export default router

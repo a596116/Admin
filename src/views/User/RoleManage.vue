@@ -1,8 +1,5 @@
 <template>
-  <FormManage
-    @on-submit="actions.handleSubmit"
-    :disable="route.path.includes('1')"
-    title="用戶權限">
+  <FormManage @on-submit="actions.handleSubmit" :disable="route.path.includes('1')">
     <template #form>
       <el-form
         ref="ruleFormRef"

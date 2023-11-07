@@ -1,13 +1,5 @@
 <template>
   <main class="flex flex-col w-full h-full" :class="{ 'gap-y-2': showHeader }">
-    <!-- <section
-      v-if="formatShowHeader"
-      class="flex items-center justify-between w-full"
-    >
-      <div>
-        <slot name="radio"></slot>
-      </div>
-    </section> -->
     <!-- 關鍵字、日期搜尋 -->
     <section v-if="showHeader" class="flex justify-between pb-3 border-b">
       <section class="flex flex-col items-center gap-3 lg:flex-row">
@@ -100,7 +92,6 @@
       size="small"
       :data="isExpand || props.tableData.data"
       :row-key="rowKey ? rowKey : (row) => row.id"
-      :height="tableHeight == 'auto' ? null : tableHeight"
       table-layout="fixed"
       :show-summary="showSummary"
       :header-cell-style="formatTableStyle.header"
@@ -154,19 +145,14 @@
             class="max-w-[70px]"></el-image>
         </template>
         <template v-if="type == 'status'" #default="scope">
-          <el-tag
-            class="mx-1 !border-0"
-            :color="scope.row[prop] ? '#bfccb5' : '#e9edc9'"
-            effect="dark">
-            {{ scope.row[prop] ? '啟用' : '停用' }}
-          </el-tag>
+          <TagStatus :status="Number(scope.row[prop])" />
         </template>
         <template v-if="type == 'date'" #default="scope">
           {{ dayjs(scope.row[prop]).format('YYYY-MM-DD') }}
         </template>
       </el-table-column>
       <!-- 功能列 -->
-      <el-table-column v-if="rowButtons.length" width="140" align="center" label="功能">
+      <el-table-column v-if="rowButtons.length" width="120" align="center" label="功能">
         <template #default="scope">
           <section class="flex items-center justify-center action-buttons gap-x-3">
             <ButtonTipPermission
@@ -178,7 +164,7 @@
           </section>
         </template>
       </el-table-column>
-      <el-table-column v-if="showActionCol" width="140" align="center" label="功能">
+      <el-table-column v-if="showActionCol" width="120" align="center" label="功能">
         <template #default="scope">
           <section class="flex items-center justify-center action-buttons gap-x-3">
             <slot name="action" :row="scope.row" :index="scope.$index"></slot>
@@ -217,8 +203,8 @@ import { tableStyle } from '@/utils/formatTable'
 import { dayjs } from 'element-plus'
 import { isEmpty, debounce } from 'lodash-es'
 
-const router = useRouter()
 const route = useRoute()
+const router = useRouter()
 
 // ----------- props -----------
 const props = defineProps({
@@ -276,6 +262,22 @@ const emit = defineEmits([
   'on-row-action-command', // 列按鈕
 ])
 
+onMounted(() => {
+  const { t = null, c = null, q = null } = route.query
+  if (t) {
+    propsTableData.value.take = Number(t)
+  }
+  if (c) {
+    propsTableData.value.current = Number(c)
+  }
+  if (q) {
+    if (!props.isExpand) {
+      propsTableData.value.search_params.q = q
+    }
+    actions.handleSearchByKeyword()
+  }
+})
+
 // ----------- ref -----------
 const refDefaultTable = ref(null)
 const multipleSelection = ref([])
@@ -312,6 +314,12 @@ const formatTableStyle = computed(() => {
 // ----------- actions ----------
 const actions = {
   handleChange: () => {
+    const query = {
+      t: propsTableData.value.take,
+      c: propsTableData.value.current,
+      q: propsTableData.value.search_params.q,
+    }
+    router.push({ query })
     refDefaultTable.value.setScrollTop(0)
     emit('on-change')
   },
@@ -380,7 +388,15 @@ const actions = {
 
   // 搜尋 - 關鍵字
   handleSearchByKeyword: () => {
-    propsTableData.value.search_params.q = state.value.search
+    if (!props.isExpand) {
+      propsTableData.value.search_params.q = state.value.search
+      const params = {
+        t: propsTableData.value.take,
+        c: propsTableData.value.current,
+        q: propsTableData.value.search_params.q,
+      }
+      router.push({ query: params })
+    }
     emit('search-keyword')
   },
 

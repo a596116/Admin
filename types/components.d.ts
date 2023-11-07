@@ -65,6 +65,7 @@ declare module '@vue/runtime-core' {
     SelectRole: typeof import('./../src/components/Select/SelectRole.vue')['default']
     SvgIcon: typeof import('./../src/components/Global/SvgIcon.vue')['default']
     TableCellLink: typeof import('./../src/components/Table/TableCellLink.vue')['default']
+    TagStatus: typeof import('./../src/components/tag/TagStatus.vue')['default']
     ThemeSetting: typeof import('./../src/components/Page/navbar/ThemeSetting.vue')['default']
     UploadImage: typeof import('./../src/components/upload/UploadImage.vue')['default']
     UserInfo: typeof import('./../src/components/Page/navbar/UserInfo.vue')['default']

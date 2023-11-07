@@ -24,20 +24,29 @@ export interface IAlterUserPassword {
   password: string
   newPassword: string
 }
+enum Api {
+  default = 'auth',
+  login = 'auth/login',
+  register = 'auth/register',
+  alter = 'auth/alter',
+  alterPassword = 'auth/alterPassword',
+  captcha = 'auth/captcha',
+  info = 'auth/info',
+}
 
 class authApi {
   // 用戶資訊
   info(userId: number) {
     return http.request<IUser>({
-      url: `auth/${userId ?? 0}`,
+      url: `${Api.default}/${userId ?? 0}`,
     })
   }
   /**
    * 用戶登入
    */
   login(loginForm: ILoginUser) {
-    return http.request<Login>({
-      url: 'auth/login',
+    return http.request<any>({
+      url: `${Api.login}`,
       method: 'POST',
       data: loginForm,
     })
@@ -48,7 +57,7 @@ class authApi {
    */
   regist(userForm: IRegisterUser) {
     return http.request({
-      url: 'auth/register',
+      url: `${Api.register}`,
       method: 'post',
       data: { ...userForm, status: true, avatar: '0', gender: 'other', birthday: '2000-01-01' },
     })
@@ -60,7 +69,7 @@ class authApi {
    */
   alterUserInfo(user: IAlterUser) {
     return http.request({
-      url: `auth/alter`,
+      url: `${Api.alter}`,
       method: 'POST',
       data: user,
     })
@@ -72,7 +81,7 @@ class authApi {
    */
   alterUserPassword(user: IAlterUserPassword) {
     return http.request({
-      url: `auth/alterPassword`,
+      url: `${Api.alterPassword}`,
       method: 'POST',
       data: user,
     })
@@ -80,7 +89,7 @@ class authApi {
 
   getUser(id: string) {
     return http.request<IUser>({
-      url: `user/${id}`,
+      url: `${Api.default}/${id}`,
     })
   }
 
@@ -89,26 +98,25 @@ class authApi {
    */
   captcha(id?: string) {
     return http.request({
-      url: `auth/captcha/${id ? id : '-1'}`,
+      url: `${Api.captcha}/${id ? id : '-1'}`,
     })
   }
 
-  verify(captcha: { captcha: string, id: string }) {
+  verify(captcha: { captcha: string; id: string }) {
     return http.request({
       method: 'POST',
-      url: 'auth/captcha',
-      data: captcha
+      url: `${Api.captcha}`,
+      data: captcha,
     })
   }
 
   update(data: any) {
     return http.request({
-      url: `auth/info/${data.id}`,
+      url: `${Api.info}/${data.id}`,
       method: 'put',
       data,
     })
   }
-
 }
 
 export default new authApi()

@@ -1,26 +1,42 @@
 import { http } from '@/plugins/axios'
-enum Api {
-  default = 'user/permission',
+
+export interface HypeBeast {
+  id: number
+  title: string
+  descs: any
+  img: string
+  link: string
+  time: string
+  created_at: string
+  updated_at: string
 }
-class permissionApi {
+
+enum Api {
+  default = 'hypebeast',
+}
+
+class HypeBeastApi {
   /**
-   * @description: 獲取權限列表
+   * @description: 獲取HypeBeast列表
    */
   fetchAll(query: any) {
-    return http.request<IUser[]>({
+    return http.request<HypeBeast[]>({
       url: `${Api.default}`,
       params: query,
     })
   }
 
-  fetch(id: number) {
-    return http.request<IRole>({
+  /**
+   * @description: 獲取HypeBeast
+   */
+  fetch(id: string) {
+    return http.request<HypeBeast>({
       url: `${Api.default}/${id}`,
     })
   }
 
   /**
-   * @description: 新增權限
+   * @description: 新增HypeBeast
    */
   create(data: any) {
     return http.request({
@@ -30,6 +46,9 @@ class permissionApi {
     })
   }
 
+  /**
+   * @description: 更新HypeBeast
+   */
   update(data: any) {
     return http.request({
       url: `${Api.default}/${data.id}`,
@@ -38,6 +57,9 @@ class permissionApi {
     })
   }
 
+  /**
+   * @description: 刪除Nike
+   */
   delete(id: number) {
     return http.request({
       url: `${Api.default}/${id}`,
@@ -46,4 +68,4 @@ class permissionApi {
   }
 }
 
-export default new permissionApi()
+export default new HypeBeastApi()

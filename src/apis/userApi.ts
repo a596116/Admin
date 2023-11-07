@@ -1,26 +1,27 @@
 import { http } from '@/plugins/axios'
-
+enum Api {
+  default = 'auth',
+}
 class userApi {
   /**
    * @description: 獲取用戶列表
    */
   fetchAll(query: any) {
     return http.request<IUser[]>({
-      url: `auth`,
+      url: `${Api.default}`,
       params: query,
     })
   }
 
   fetch(id: number) {
     return http.request<IUser>({
-      url: `auth/${id}`,
+      url: `${Api.default}/${id}`,
     })
   }
 
-
   update(data: any) {
     return http.request({
-      url: `auth/${data.id}`,
+      url: `${Api.default}/${data.id}`,
       method: 'put',
       data,
     })

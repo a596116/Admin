@@ -4,25 +4,30 @@
     class="p-4"
     v-model:table-data="state.table"
     :columns="state.table.columns"
-    search-placeholder="搜尋用戶"
+    search-placeholder="搜尋Line用戶"
     label-text-date-range="註冊日期"
     :action-buttons="['search-date-range']"
     :show-action-col="true"
+    :show-index="false"
     @on-change="actions.handleFetchAll"
-    @search-keyword="actions.handleFetchAll(false)"
+    @search-keyword="actions.handleFetchAll()"
     @on-row-action-command="actions.handleRowActionCommand">
     <!-- 名稱 -->
-    <template #name="scope">
+    <template #displayName="scope">
       <TableCellLink
-        :value="scope.row.name"
-        @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
+        :value="scope.row.displayName"
+        @cell-click="actions.handleCellClick({ cell: 'displayName', row: scope.row })" />
     </template>
 
-    <!-- 權限 -->
-    <template #permissions="scope">
-      <TableCellLink
-        :value="scope.row.UserRole[0].role.name"
-        @cell-click="actions.handleCellClick({ cell: 'permissions', row: scope.row })" />
+    <!-- 推播 -->
+    <template #nike_broadcast="scope">
+      <TagStatus :status="Number(scope.row.nike_broadcast)" />
+    </template>
+    <template #hypebeast_broadcast="scope">
+      <TagStatus :status="Number(scope.row.hypebeast_broadcast)" />
+    </template>
+    <template #ithome_broadcast="scope">
+      <TagStatus :status="Number(scope.row.ithome_broadcast)" />
     </template>
 
     <template #action="scope">
@@ -36,11 +41,13 @@
 </template>
 
 <script setup lang="ts">
+import { LineUser } from '@/apis/line-userApi'
+import { dayjs } from 'element-plus'
+
 const router = useRouter()
 const state = reactive({
-  loading: false,
   table: {
-    data: <IUser[]>[],
+    data: <LineUser[]>[],
     columns: <TableColumns[]>[],
     current: 1,
     take: 5,
@@ -62,16 +69,17 @@ onMounted(() => {
 })
 
 const actions = {
-  handleFetchAll: (showLoading = true) => {
+  handleFetchAll: () => {
     const { current: current_page, take, sort, search_params } = state.table
     const params = { current_page, take, sort, ...search_params }
-    api.userApi.fetchAll(params).then((result) => {
+    api.LineUserApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
-        { label: '名稱', prop: 'name', align: 'center', formatter: true },
-        { label: '手機號', prop: 'phone', width: 120 },
-        { label: '狀態', prop: 'status', width: 80, type: 'status' },
-        { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
-        { label: '頭像', prop: 'avatar', align: 'center', type: 'image' },
+        { label: '名稱', prop: 'displayName', align: 'center', formatter: true },
+        { label: '狀態', prop: 'status', width: 100, align: 'center', type: 'status' },
+        { label: '頭像', prop: 'pictureUrl', align: 'center', type: 'image' },
+        { label: 'nike推播', prop: 'nike_broadcast', align: 'center', formatter: true },
+        { label: 'hypebeast推播', prop: 'hypebeast_broadcast', align: 'center', formatter: true },
+        { label: 'ithome推播', prop: 'ithome_broadcast', align: 'center', formatter: true },
         { label: '註冊日期', prop: 'created_at', type: 'date' },
       ]
       const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result
@@ -92,7 +100,7 @@ const actions = {
    */
   handleRoutePush: (params: any, query?: any) => {
     router.push({
-      path: `/user/${params}`,
+      path: `/lineUser/${params}`,
       query: query,
     })
   },
@@ -103,38 +111,15 @@ const actions = {
   handleCellClick: (params: any) => {
     const { cell, row } = params
     const id = row.id
-    if (cell === 'permissions') {
-      router.push({
-        path: `/role/${id}`,
-      })
-    }
-    if (cell === 'name') {
+    if (cell === 'displayName') {
       actions.handleRoutePush(`${id}`)
     }
   },
 
-  /*
-   * @description: 刪除
-   */
-  handleDeleteConfirm: (id: number) => {
-    mesBox
-      .question({
-        title: `刪除用戶?`,
-        subTitle: `確定要刪除 ${id} 嗎?`,
-        showCancelButton: true,
-      })
-      .then(() => {
-        // actions.handleDelete(id, number)
-      })
-      .catch(() => {})
-  },
   handleRowActionCommand: (row: IUser, command: string) => {
     switch (command) {
       case 'edit':
         actions.handleRoutePush(`edit/${row.id}`)
-        break
-      case 'delete':
-        actions.handleDeleteConfirm(row.id)
         break
     }
   },

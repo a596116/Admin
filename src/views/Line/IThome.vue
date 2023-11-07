@@ -4,25 +4,18 @@
     class="p-4"
     v-model:table-data="state.table"
     :columns="state.table.columns"
-    search-placeholder="搜尋用戶"
-    label-text-date-range="註冊日期"
+    search-placeholder="搜尋標題"
+    label-text-date-range="新增日期"
     :action-buttons="['search-date-range']"
     :show-action-col="true"
     @on-change="actions.handleFetchAll"
-    @search-keyword="actions.handleFetchAll(false)"
+    @search-keyword="actions.handleFetchAll()"
     @on-row-action-command="actions.handleRowActionCommand">
     <!-- 名稱 -->
-    <template #name="scope">
+    <template #title="scope">
       <TableCellLink
-        :value="scope.row.name"
-        @cell-click="actions.handleCellClick({ cell: 'name', row: scope.row })" />
-    </template>
-
-    <!-- 權限 -->
-    <template #permissions="scope">
-      <TableCellLink
-        :value="scope.row.UserRole[0].role.name"
-        @cell-click="actions.handleCellClick({ cell: 'permissions', row: scope.row })" />
+        :value="scope.row.title"
+        @cell-click="actions.handleCellClick({ cell: 'title', row: scope.row })" />
     </template>
 
     <template #action="scope">
@@ -36,16 +29,17 @@
 </template>
 
 <script setup lang="ts">
+import { Ithome } from '@/apis/ithomeApi'
+
 const router = useRouter()
 const state = reactive({
-  loading: false,
   table: {
-    data: <IUser[]>[],
+    data: <Ithome[]>[],
     columns: <TableColumns[]>[],
     current: 1,
-    take: 5,
+    take: 10,
     total: 1,
-    sort: 'created_at-asc',
+    sort: 'created_at-desc',
     message: '',
     search_params: {
       start_date: null,
@@ -62,17 +56,16 @@ onMounted(() => {
 })
 
 const actions = {
-  handleFetchAll: (showLoading = true) => {
+  handleFetchAll: () => {
     const { current: current_page, take, sort, search_params } = state.table
     const params = { current_page, take, sort, ...search_params }
-    api.userApi.fetchAll(params).then((result) => {
+
+    api.ithomeApi.fetchAll(params).then((result) => {
       const columns: TableColumns[] = [
-        { label: '名稱', prop: 'name', align: 'center', formatter: true },
-        { label: '手機號', prop: 'phone', width: 120 },
-        { label: '狀態', prop: 'status', width: 80, type: 'status' },
-        { label: '權限', prop: 'permissions', formatter: true, align: 'center' },
-        { label: '頭像', prop: 'avatar', align: 'center', type: 'image' },
-        { label: '註冊日期', prop: 'created_at', type: 'date' },
+        { label: '標題', prop: 'title', align: 'center', formatter: true },
+        { label: '發售日期', prop: 'time', type: 'date' },
+        { label: '圖片', prop: 'img', align: 'center', type: 'image' },
+        { label: '新增日期', prop: 'created_at', type: 'date' },
       ]
       const { current_page: current = 1, total = 1, per_page: take = 20, data, message } = result
       state.table = {
@@ -92,7 +85,7 @@ const actions = {
    */
   handleRoutePush: (params: any, query?: any) => {
     router.push({
-      path: `/user/${params}`,
+      path: `/ithome/${params}`,
       query: query,
     })
   },
@@ -103,42 +96,17 @@ const actions = {
   handleCellClick: (params: any) => {
     const { cell, row } = params
     const id = row.id
-    if (cell === 'permissions') {
-      router.push({
-        path: `/role/${id}`,
-      })
-    }
-    if (cell === 'name') {
+    if (cell === 'title') {
       actions.handleRoutePush(`${id}`)
     }
   },
 
-  /*
-   * @description: 刪除
-   */
-  handleDeleteConfirm: (id: number) => {
-    mesBox
-      .question({
-        title: `刪除用戶?`,
-        subTitle: `確定要刪除 ${id} 嗎?`,
-        showCancelButton: true,
-      })
-      .then(() => {
-        // actions.handleDelete(id, number)
-      })
-      .catch(() => {})
-  },
   handleRowActionCommand: (row: IUser, command: string) => {
     switch (command) {
       case 'edit':
         actions.handleRoutePush(`edit/${row.id}`)
         break
-      case 'delete':
-        actions.handleDeleteConfirm(row.id)
-        break
     }
   },
 }
 </script>
-
-<style scoped></style>

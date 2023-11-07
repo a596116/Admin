@@ -1,8 +1,8 @@
 <template>
   <div>
-    <el-container class="relative min-h-screen">
+    <el-container class="relative min-h-screen bg-hd-Bg-1">
       <!-- Menu -->
-      <el-scrollbar class="z-[99]! !absolute md:!relative bg-hd-Bg-1">
+      <el-scrollbar class="z-[99]! !absolute md:!relative">
         <Menu />
       </el-scrollbar>
       <el-container class="relative grid min-h-full">
@@ -10,7 +10,7 @@
           class="mask md:hidden"
           @click="closeMenu"
           :class="{ close: !menuStore.isMenuCollapse }"></div>
-        <div class="content grid w-full grid-rows-[auto_1fr] bg-hd-Bg-1 bg-cover bg-no-repeat">
+        <div class="content grid w-full grid-rows-[auto_1fr] bg-cover bg-no-repeat bg-transparent">
           <div class="relative w-full bg-transparent">
             <NavBar />
             <transition name="top-slide-fade" mode="out-in">
@@ -19,8 +19,11 @@
           </div>
 
           <main
-            class="relative mx-6 mb-6 overflow-y-auto rounded-lg main bg-hd-Bg-1"
-            :class="{ 'mt-6': menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse }">
+            class="relative mx-2 mb-2 overflow-y-auto rounded-lg bg-hd-Bg-1 main"
+            :class="{
+              'mt-3': !menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse,
+              'mt-6': menuStore.isBreadcrumbCollapse && !menuStore.isHistoryCollapse,
+            }">
             <router-view #default="{ Component, route }">
               <Transition
                 appear
@@ -73,7 +76,7 @@ const closeMenu = () => {
   }
 }
 .main {
-  box-shadow: 5px 5px 14px #a7aaad, -5px -5px 14px #ffffff;
+  box-shadow: 0px 0px 14px #a7aaad;
 }
 // .main::-webkit-scrollbar {
 //   display: none;
