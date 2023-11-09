@@ -111,7 +111,7 @@ const actions = {
    */
   handleFetchAllSelectOptions: async () => {
     const params = {
-      page: 1,
+      current_page: 1,
       take: 2000,
     }
     api.permissionApi
