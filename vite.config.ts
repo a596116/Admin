@@ -13,33 +13,33 @@ export default ({ command }: ConfigEnv): any => {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
         '#': fileURLToPath(new URL('./src/assets', import.meta.url)),
-      }
+      },
     },
     build: {
       rollupOptions: {
         output: {
-          entryFileNames: `assets/[name].js`,
-          chunkFileNames: `assets/[name].js`,
-          assetFileNames: `assets/[name].[ext]`,
-          // manualChunks(id: string) {
-          //   if (id.includes('node_modules')) {
-          //     return id.toString().split('node_modules/')[1].split('/')[0].toString()
-          //   }
-          // },
+          // entryFileNames: `assets/[name].js`,
+          // chunkFileNames: `assets/[name].js`,
+          // assetFileNames: `assets/[name].[ext]`,
+          manualChunks(id: string) {
+            if (id.includes('node_modules')) {
+              return id.toString().split('node_modules/')[1].split('/')[0].toString()
+            }
+          },
         },
       },
       cssCodeSplit: true,
       chunkSizeWarningLimit: 2000,
       sourcemap: false,
       minify: false,
-      assetsInLineLimit: 5000
+      assetsInLineLimit: 5000,
     },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: '@import "#/scss/base.scss";'
-        }
-      }
+          additionalData: '@import "#/scss/base.scss";',
+        },
+      },
     },
     terserOptions: {
       compress: {
@@ -54,16 +54,15 @@ export default ({ command }: ConfigEnv): any => {
         '/api': {
           target: process.env.VITE_BASEURL,
           changeOrigin: true,
-          rewrite: (path: any) => path.replace(/^\/api/, ""),
+          rewrite: (path: any) => path.replace(/^\/api/, ''),
         },
         '/upload': {
           target: process.env.VITE_BASEURL,
           changeOrigin: true,
-          rewrite: (path: any) => path.replace(/^\/upload/, ""),
+          rewrite: (path: any) => path.replace(/^\/upload/, ''),
         },
       },
       cors: true,
-    }
+    },
   }
 }
-
