@@ -9,7 +9,7 @@
       <svg-icon
         :name="menuStore.isMenuCollapse ? 'logo' : 'logo1'"
         class="h-[45px] w-full"
-        @click="router.push({ name: 'admin' })"></svg-icon>
+        @click="handle({ route: 'admin' })"></svg-icon>
     </div>
 
     <div class="mr-2" v-for="(menu, index) in menuStore.menus" :key="index">
@@ -24,7 +24,7 @@
           v-for="(cmenu, index) in menu.children"
           :key="index"
           :index="cmenu?.route?.split('/')[1]"
-          @click="handle(menu, cmenu)">
+          @click="handle(cmenu)">
           <span class="menu-title">{{ cmenu.title }}</span>
         </el-menu-item>
       </el-sub-menu>
@@ -32,7 +32,7 @@
       <el-menu-item
         v-else
         :index="menu.children[0]?.route?.split('/')[1]"
-        @click="handle(menu, menu.children![0])">
+        @click="handle(menu.children![0])">
         <section class="hidden md:block">
           <svg-icon :name="menu.icon" class="w-5 h-5"></svg-icon>
         </section>
@@ -54,8 +54,11 @@ const route = useRoute()
 const menuStore = useMenuStore()
 const active_menu = ref(route.path.split('/')[2])
 
-const handle = (pmenu: IMenu, cmenu?: IMenu) => {
+const handle = (cmenu?: IMenu) => {
   router.push({ name: cmenu?.route })
+  closeMenu()
+}
+const closeMenu = () => {
   if (document.documentElement.scrollWidth <= 768) {
     menuStore.toggleMenu()
   }
