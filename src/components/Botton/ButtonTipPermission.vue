@@ -1,69 +1,66 @@
 <template>
-  <el-tooltip v-if="!isEmpty(content)" effect="dark" :content="content" placement="top">
+  <!-- <el-tooltip v-if="!isEmpty(content)" effect="dark" :content="content" placement="top">
     <button
-      v-if="hasValid"
-      v-permission="{
-        currentTag: root ? 'root' : tag,
-        effect: 'disabled',
-      }"
       :size="size || defaultSize"
       :loading="loading"
       :disabled="disabled"
-      class="flex h-[24px] w-[24px] cursor-pointer items-center justify-center rounded-full border-primary text-hd-white disabled:cursor-not-allowed disabled:opacity-30"
+      class="flex h-[24px] w-[24px] items-center justify-center rounded-full text-hd-primary hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
       :class="{
-        'text-custom-red-400': tag === 'delete',
+        'text-red-300': tag === 'delete',
       }"
       @click="emit('on-submit')">
-      <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>
+      <svg-icon :name="icon" class="h-[24px] w-[24px]"></svg-icon>
     </button>
-
-    <el-button
-      v-else
-      :size="size || defaultSize"
-      :icon="icon"
-      :loading="loading"
-      circle
-      @click="emit('on-submit')" />
   </el-tooltip>
   <div v-else>
     <button
-      v-if="hasValid"
-      v-permission="{
-        currentTag: root ? 'root' : tag,
-        effect: 'disabled',
-      }"
       :size="size || defaultSize"
       :loading="loading"
       :disabled="disabled"
-      class="flex h-[24px] w-[24px] cursor-pointer items-center texhdw justify-center rounded-full border-primary text-hd-white hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
+      class="flex h-[24px] w-[24px] items-center justify-center rounded-full text-hd-primary hover:opacity-60 disabled:cursor-not-allowed disabled:opacity-30"
       :class="{
         'text-hd-danger': tag === 'delete',
       }"
       @click="emit('on-submit')">
-      <svg-icon :name="icon" class="h-[18px] w-[18px]"></svg-icon>
+      <svg-icon :name="icon" class="h-[24px] w-[24px]"></svg-icon>
     </button>
+  </div> -->
 
-    <el-button
-      v-else
-      :size="size || defaultSize"
-      :icon="icon"
-      :loading="loading"
-      circle
-      @click="emit('on-submit')" />
-  </div>
+  <el-button
+    :size="size || defaultSize"
+    :loading="loading"
+    :disabled="disabled"
+    text
+    bg
+    class="flex items-center justify-center my-2 animation bg-hd-bg disabled:cursor-not-allowed disabled:opacity-30"
+    :class="{
+      'text-hd-danger': tag === 'delete',
+      'text-hd-primary': tag !== 'delete',
+    }"
+    @click="emit('on-submit')">
+    <span>{{ content }}</span>
+  </el-button>
 </template>
 <script setup lang="ts">
 import { isEmpty } from 'lodash-es'
 
-const emit = defineEmits(['on-submit'])
-const props = defineProps({
-  type: { type: String, default: 'edit' },
-  size: { type: String, default: '' },
-  loading: { type: Boolean, default: false },
-  hasValid: { type: Boolean, default: true },
-  disabled: { type: Boolean, default: false },
-  root: { type: Boolean, default: false },
-})
+const emit = defineEmits<{
+  (e: 'on-submit'): void
+}>()
+const props = withDefaults(
+  defineProps<{
+    type: keyof typeof buttonMap
+    size?: '' | 'default' | 'small' | 'large'
+    loading?: boolean
+    disabled?: boolean
+  }>(),
+  {
+    type: 'edit',
+    size: 'small',
+    loading: false,
+    disabled: false,
+  },
+)
 const buttonMap = {
   print: {
     content: '列印',
@@ -95,6 +92,13 @@ const buttonMap = {
     defaultSize: 'small',
     icon: 'delete',
   },
+} as {
+  [key: string]: {
+    content: string
+    tag: string
+    defaultSize: '' | 'default' | 'small' | 'large'
+    icon: string
+  }
 }
 const { content, tag, defaultSize, icon } = buttonMap[props.type]
 </script>

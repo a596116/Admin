@@ -6,26 +6,31 @@
     class="admin-menu"
     :unique-opened="true">
     <div class="flex items-center justify-center w-full px-2 my-4 cursor-pointer">
-      <svg-icon
-        :name="menuStore.isMenuCollapse ? 'logo' : 'logo1'"
-        class="h-[45px] w-full"
-        @click="handle({ route: 'admin' })"></svg-icon>
+      <transition name="slide-left-fade" mode="out-in">
+        <svg-icon
+          v-if="menuStore.isMenuCollapse"
+          name="logo"
+          class="h-[60px] w-full"
+          @click="handle({ route: 'admin' })" />
+        <svg-icon v-else name="logo1" class="h-[60px] w-full" @click="handle({ route: 'admin' })" />
+      </transition>
     </div>
-
-    <div class="mr-2" v-for="(menu, index) in menuStore.menus" :key="index">
+    <div class="px-2" v-for="(menu, index) in menuStore.menus" :key="index">
       <el-sub-menu v-if="menu.children?.length != 1" :index="menu.title!">
         <template #title>
           <section class="hidden md:block">
             <svg-icon :name="menu.icon" class="w-5 h-5"></svg-icon>
           </section>
-          <span class="mx-2 md:mx-4 title">{{ menu.title }}</span>
+          <span class="mx-2 title md:mx-4">{{ menu.title }}</span>
         </template>
         <el-menu-item
           v-for="(cmenu, index) in menu.children"
           :key="index"
           :index="cmenu?.route?.split('/')[1]"
           @click="handle(cmenu)">
-          <span class="menu-title">{{ cmenu.title }}</span>
+          <template #title>
+            <span class="menu-title">{{ cmenu.title }}</span>
+          </template>
         </el-menu-item>
       </el-sub-menu>
 
@@ -36,13 +41,26 @@
         <section class="hidden md:block">
           <svg-icon :name="menu.icon" class="w-5 h-5"></svg-icon>
         </section>
-        <span class="mx-2 md:mx-4 title">{{ menu.children[0].title }}</span>
+        <template #title>
+          <span class="mx-2 title md:mx-4">{{ menu.children[0].title }}</span>
+        </template>
       </el-menu-item>
     </div>
+    <!-- <div class="flex-grow" />
+    <div class="sticky bottom-0 px-2 pb-2 bg-hd-bg-1">
+      <el-menu-item @click="" class="">
+        <section class="">
+          <svg-icon name="logout" class="w-5 h-5"></svg-icon>
+        </section>
+        <template #title>
+          <span class="mx-2 title md:mx-4">123</span>
+        </template>
+      </el-menu-item>
+    </div> -->
   </el-menu>
   <div
     v-if="menuStore.isMenuCollapse"
-    class="absolute top-0 left-0 z-10 w-full h-full bg-white/40 md:hidden"
+    class="absolute left-0 top-0 z-[20] h-full w-full bg-white/40 md:hidden"
     @click="menuStore.toggleMenu"></div>
 </template>
 
@@ -74,31 +92,60 @@ watch(
 
 <style scoped lang="scss">
 .admin-menu {
-  @apply left-0 top-0 z-[51] mx-2 my-4 h-[calc(100vh-32px)] overflow-hidden rounded-xl border-0 max-md:h-[calc(100vh-20px)] max-md:mt-[10px]
-        max-md:absolute  max-w-[190px];
+  @apply left-0 top-0 z-[21] flex h-full max-w-[210px] flex-col overflow-auto rounded-2xl
+        border-0 max-md:absolute max-md:mt-[10px] max-md:h-[calc(100vh-20px)];
   transition: width 0.3s ease-in-out;
+  .title {
+    @apply w-[140px];
+    // 超出...
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  // .el-menu-item .el-menu-tooltip__trigger,
+  // .el-menu-item,
+  // .el-sub-menu__title {
+  //   padding: auto !important;
+  // }
+  .el-sub-menu__title {
+    @apply relative;
+    .el-sub-menu__icon-arrow {
+      @apply absolute right-2;
+    }
+  }
+  span,
+  svg,
   * {
-    @apply bg-hd-bg-1 text-hd-white-50;
+    @apply text-hd-text-50;
+    transition: all 0.3s ease-in-out !important;
   }
   // Menu
-  :deep(.el-sub-menu__title),
-  :deep(.el-menu-item) {
+  :deep(.el-menu-item),
+  :deep(.el-sub-menu__title) {
     @apply rounded-lg;
     span,
     svg {
       background-color: transparent !important;
-      color: var(--hd-white-50);
-      letter-spacing: 8px;
-      transition: 0.3s ease-in-out !important;
+      color: var(--hd-text-50);
+      letter-spacing: 6px;
+      // transition: 0.3s ease-in-out !important;
     }
 
-    &:hover,
-    &.is-active {
+    &:hover {
       @apply text-hd-primary-hover;
       span,
       svg,
       * {
         @apply text-hd-primary-hover;
+      }
+    }
+    &.is-active {
+      @apply text-hd-white;
+      background-color: var(--hd-primary-hover) !important;
+      span,
+      svg,
+      * {
+        @apply text-hd-white;
       }
     }
   }
@@ -114,6 +161,13 @@ watch(
   &.el-menu--collapse span,
   &.el-menu--collapse .el-sub-menu__icon-arrow {
     @apply hidden;
+  }
+
+  &.el-menu--collapse .el-sub-menu.is-active {
+    @apply rounded-lg bg-hd-primary-hover;
+    * {
+      color: var(--hd-white) !important;
+    }
   }
 }
 

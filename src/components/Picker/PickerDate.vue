@@ -20,9 +20,8 @@
 </template>
 
 <script setup lang="ts">
+import { useAfterTimeShortcuts, useBeforeTimeShortcuts } from '@/utils/useTimeShortcuts'
 import dayjs from 'dayjs'
-import useBeforeTimeShortcuts from '@/utils/useBeforeTimeShortcuts'
-import useAfterTimeShortcuts from '@/utils/useAfterTimeShortcuts'
 
 // ----------- props -----------
 const props = defineProps({

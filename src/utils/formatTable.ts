@@ -4,14 +4,11 @@ export function tableStyle(props?: any) {
       header: () => {
         return {
           letterSpacing: '.4em',
-          backgroundColor: '#101110',
           fontWeight: 500,
         }
       },
       row: () => {
         return {
-          backgroundColor: '#101110',
-          color: '#fff',
           fontSize: '14px',
           height: '60px',
         }
@@ -20,40 +17,19 @@ export function tableStyle(props?: any) {
         if (row.id == 'total') {
           return 'row-bg--total'
         }
-        if (props?.alertRow.includes(rowIndex)) {
-          return 'row-bg-alert'
-        }
       },
       tableColClassName: ({ row, column }: { row: any; column: any }) => {
-        const hightLightText = 'name'
-        const cellLinks = props?.cellLinks || []
-        const redCols = props?.redCols || []
-        if (column.property === hightLightText) {
-          if (cellLinks.includes(column.property)) {
-            return 'text-primary-500 cursor-pointer'
-          } else {
-            return 'text-primary-500'
-          }
-        }
-        if (redCols.includes(column.property)) {
-          return 'text-custom-red-500'
-        }
-        if (cellLinks.includes(column.property)) {
-          return 'text-primary-500 cursor-pointer'
-        }
-        if (column.property === 'in_count') {
-          return 'text-green-600'
-        }
-        if (column.property === 'out_count') {
-          return 'text-red-600'
-        }
+        // const hightLightText = 'name'
+        // if (column.property === hightLightText) {
+        //   return 'text-hd-primary'
+        // }
+        return ''
       },
     },
     expand: {
       header: () => {
         return {
           letterSpacing: '.4em',
-          backgroundColor: '#101110',
           fontWeight: 500,
         }
       },
@@ -63,36 +39,19 @@ export function tableStyle(props?: any) {
         }
       },
       tableRowClassName: ({ row, rowIndex }: { row: any; rowIndex: number }) => {
-        if (props?.alertRow.includes(rowIndex)) {
-          return 'row-bg-alert'
+        if (row.id == 'total') {
+          return 'row-bg--total'
         }
-        if (rowIndex % 2 !== 0) {
-          return 'row-bg'
-        }
+        // if (rowIndex % 2 !== 0) {
+        //   return 'row-bg'
+        // }
       },
       tableColClassName: ({ row, column }: { row: any; column: any }) => {
-        const hightLightText = 'name'
-        const cellLinks = props?.cellLinks || []
-        const redCols = props?.redCols || []
-        if (column.property === hightLightText) {
-          if (cellLinks.includes(column.property)) {
-            return 'text-primary-500 cursor-pointer'
-          } else {
-            return 'text-primary-500'
-          }
-        }
-        if (redCols.includes(column.property)) {
-          return 'text-custom-red-500'
-        }
-        if (cellLinks.includes(column.property)) {
-          return 'text-primary-500 cursor-pointer'
-        }
-        if (column.property === 'in_count') {
-          return 'text-green-600'
-        }
-        if (column.property === 'out_count') {
-          return 'text-red-600'
-        }
+        // const hightLightText = 'name'
+        // if (column.property === hightLightText) {
+        //   return 'text-hd-primary'
+        // }
+        return ''
       },
     },
   }

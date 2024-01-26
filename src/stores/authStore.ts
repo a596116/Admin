@@ -10,6 +10,11 @@ export const useAuthStore = defineStore(
   () => {
     const user = ref<null | IUser>(null)
     const userId = ref<number>()
+    const rememberUser = ref<{ account: string; password: string; rememberMe: boolean }>({
+      account: '',
+      password: '',
+      rememberMe: false,
+    })
 
     /**
      * @description: 獲取用戶資訊
@@ -59,7 +64,7 @@ export const useAuthStore = defineStore(
         account: loginForm.account,
         password: loginForm.password,
       }
-      await api.authApi
+      return await api.authApi
         .login(auth)
         .then(async (res) => {
           if (res.code == 200) {
@@ -71,18 +76,20 @@ export const useAuthStore = defineStore(
               //檢查用戶狀態
               router.push({ name: routeName })
               ElMessage.success(`歡迎 ${user.value?.name}`)
+              return res
             } else {
               storage.remove(CacheEnum.TOKEN_NAME)
               userId.value = undefined
               ElMessage.error('您以被停權，請聯繫管理員')
+              return res
             }
           } else {
-            ElMessage.error('手機或密碼錯誤')
+            return Promise.reject(res)
           }
         })
         .catch((err) => {
           ElMessage.error(`登入發生錯誤，詳情-${err}`)
-          console.error(err)
+          return err
         })
     }
 
@@ -104,11 +111,11 @@ export const useAuthStore = defineStore(
       ElMessage.success('退出登入')
     }
 
-    return { userId, user, getUser, login, registUser, logout, getUserPermission }
+    return { userId, user, getUser, login, registUser, logout, getUserPermission, rememberUser }
   },
   {
     persist: {
-      paths: ['userId'],
+      paths: ['userId', 'rememberUser'],
     },
   },
 )

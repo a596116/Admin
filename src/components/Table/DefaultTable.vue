@@ -2,11 +2,11 @@
   <main class="flex flex-col w-full h-full" :class="{ 'gap-y-2': showHeader }">
     <!-- 關鍵字、日期搜尋 -->
     <section v-if="showHeader" class="flex justify-between pb-3 border-b">
-      <section class="flex flex-col items-center gap-3 lg:flex-row">
+      <section class="flex flex-col items-center gap-3 md:flex-row">
         <div class="w-full lg:w-fit lg:min-w-[300px] px-4">
           <h5 class="text-xs leading-6 tracking-widest text-gray-500">關鍵字搜尋</h5>
           <el-input
-            class="border border-gray-300 rounded-md"
+            class="rounded-md"
             v-model="state.search"
             :placeholder="searchPlaceholder"
             clearable
@@ -14,7 +14,7 @@
             @keyup.enter="actions.handleSearchByKeyword">
           </el-input>
         </div>
-        <div class="w-full lg:w-fit">
+        <div class="w-full md:w-fit">
           <PickerDate
             v-if="actions.handleShowButton('search-updated-date')"
             v-model:date="propsTableData.search_params.updated_at"
@@ -22,7 +22,7 @@
             @date-change="actions.handleSearchByUpdateDate" />
         </div>
 
-        <div class="w-full lg:w-fit">
+        <div class="w-full md:w-fit">
           <PickerDateRange
             v-if="actions.handleShowButton('search-date-range')"
             class="w-full-date"
@@ -35,8 +35,8 @@
         </div>
 
         <slot name="filterSection"> </slot>
-        <div class="flex justify-center w-full lg:justify-start lg:self-end">
-          <div class="w-full lg:max-w-min">
+        <div class="flex justify-center w-full md:justify-start md:self-end">
+          <div class="w-full md:max-w-min">
             <el-button
               type="primary"
               class="w-full font-normal text-white"

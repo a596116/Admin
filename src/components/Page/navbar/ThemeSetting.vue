@@ -1,43 +1,43 @@
 <template>
   <div>
-    <el-tooltip effect="dark" content="主題" placement="bottom-end">
+    <slot name="title" />
+    <el-tooltip v-if="!isDropdown" effect="dark" content="主題" placement="bottom-end">
       <svg-icon
         name="setting"
-        class="w-6 h-6 duration-200 cursor-pointer hover:scale-105 hover:text-hd-primary-hover"
+        class="w-6 h-6 duration-200 cursor-pointer hover:scale-105 hover:text-hd-primary"
         @click="themeSettingDrawer = true"></svg-icon>
     </el-tooltip>
+    <el-dropdown-item
+      v-else
+      class="text-hd-dark hover:!text-hd-dark-50"
+      @click="themeSettingDrawer = true">
+      <svg-icon name="setting" class="mr-2"></svg-icon>
+      主題設定
+    </el-dropdown-item>
     <el-drawer
       v-model="themeSettingDrawer"
       title="Theme Setting"
       :with-header="false"
       :size="300"
-      class="bg-hd-bg-1">
-      <div class="flex flex-col justify-center p-8 text-lg">
-        <span class="m-auto mb-3">主題設定</span>
-        <!-- <div class="my-5">
-          <span class="mx-3 text-hd-black1">主題顏色</span>
+      append-to-body>
+      <div class="flex flex-col justify-center p-8 text-lg text-hd-dark">
+        <span class="m-auto mb-3">介面設定</span>
+        <div class="my-5">
+          <span class="mx-3">黑暗模式</span>
+          <el-switch v-model="isDark" class="ml-2" @change="toggleDark" size="large" />
+        </div>
+        <div class="my-5">
+          <span class="mx-3">主題顏色</span>
           <el-color-picker
             v-model="themeColor"
             :predefine="themeColorList"
-            @active-change="changeThemeColor" />
-        </div> -->
-        <div class="my-5">
-          <span class="mx-3">麵包屑</span>
-          <el-switch
-            v-model="menuStore.isBreadcrumbCollapse"
-            class="ml-2"
-            active-text="開"
-            inactive-text="關"
-            @change="menuStore.toggleBreadcrumb"
-            size="large" />
+            @change="changeThemeColor" />
         </div>
         <div class="my-5">
-          <span class="mx-3">歷史紀錄</span>
+          <span class="mx-3">標籤欄</span>
           <el-switch
             v-model="menuStore.isHistoryCollapse"
             class="ml-2"
-            active-text="開"
-            inactive-text="關"
             @change="menuStore.toggleHistoryLink"
             size="large" />
         </div>
@@ -49,28 +49,50 @@
 <script setup lang="ts">
 import { useMenuStore } from '@/stores/menuStore'
 const menuStore = useMenuStore()
+
+const props = withDefaults(
+  defineProps<{
+    isDropdown?: boolean
+  }>(),
+  {
+    isDropdown: false,
+  },
+)
 // 主題設定
+const defaultThemeColor = '#289983'
 const themeSettingDrawer = ref<boolean>(false)
-const themeColor = ref<string>(storage.get('themeColor') || '#fdcb6e')
-const themeColorList = ref<string[]>(['#fdcb6e', '#3DCAE0'])
 const el: HTMLElement = document.documentElement
 const el1: HTMLElement = document.documentElement
-getComputedStyle(el).getPropertyValue(`--hd-theme-color`)
-el.style.setProperty('--hd-theme-color', themeColor.value)
-getComputedStyle(el1).getPropertyValue(`--hd-theme-hover-color`)
-el1.style.setProperty('--hd-theme-hover-color', themeColor.value + '80')
-
+const el2: HTMLElement = document.documentElement
+const el3: HTMLElement = document.documentElement
+const isDark = useDark({
+  initialValue: 'light',
+  valueDark: 'dark',
+  valueLight: 'light',
+})
+const toggleDark = useToggle(isDark)
+const themeColor = ref<string>(
+  storage.get('themeColor') || getComputedStyle(el).getPropertyValue(`--hd-primary`),
+)
+const themeColorList = ref<string[]>([defaultThemeColor])
+getComputedStyle(el).getPropertyValue(`--hd-primary`)
+el.style.setProperty('--hd-primary', themeColor.value)
+getComputedStyle(el1).getPropertyValue(`--hd-primary-hover`)
+el1.style.setProperty('--hd-primary-hover', themeColor.value + '95')
+getComputedStyle(el2).getPropertyValue(`--el-color-primary`)
+el2.style.setProperty('--el-color-primary', themeColor.value)
+getComputedStyle(el3).getPropertyValue(`--hd-primary-active`)
+el3.style.setProperty('--hd-primary-active', themeColor.value + '75')
+// 黑暗模式
 const changeThemeColor = (color: string): void => {
-  storage.set('themeColor', color)
-  el.style.setProperty('--hd-theme-color', color)
-  el1.style.setProperty('--hd-theme-hover-color', color + '80')
+  if (!color) {
+    themeColor.value = defaultThemeColor
+    color = defaultThemeColor
+  }
+  storage.set('themeColor', color || defaultThemeColor)
+  el.style.setProperty('--hd-primary', color || defaultThemeColor)
+  el1.style.setProperty('--hd-primary-hover', color || defaultThemeColor + '95')
+  el2.style.setProperty('--el-color-primary', color || defaultThemeColor)
+  el3.style.setProperty('--hd-primary-active', color || defaultThemeColor + '75')
 }
 </script>
-<style scoped lang="scss">
-:deep(.el-switch__label) {
-  @apply text-hd-white-50;
-}
-:deep(.el-switch__label.is-active) {
-  @apply text-hd-primary-active;
-}
-</style>

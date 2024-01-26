@@ -1,7 +1,7 @@
 <template>
   <div>
     <span class="text-xs leading-6 tracking-widest text-gray-500">{{ labelText }}</span>
-    <div class="flex items-center border border-gray-300 rounded-md">
+    <div class="flex items-center rounded-md">
       <el-date-picker
         ref="refDatePicker"
         v-model="propsDateValue"
