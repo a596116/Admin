@@ -1,8 +1,8 @@
 import axios, {
-  AxiosInstance,
-  AxiosRequestHeaders,
+  type AxiosInstance,
   type AxiosRequestConfig,
-  InternalAxiosRequestConfig,
+  type AxiosRequestHeaders,
+  type InternalAxiosRequestConfig,
 } from 'axios'
 import { CacheEnum } from '@/enum/cacheEnum'
 import router from '@/router'

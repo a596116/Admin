@@ -1,11 +1,11 @@
-import authApi from './authApi'
-import userApi from './userApi'
-import roleApi from './roleApi'
-import permissionApi from './permissionApi'
-import LineUserApi from './line-userApi'
-import nikeApi from './nikeApi'
-import hypebeastApi from './hypebeastApi'
-import ithomeApi from './ithomeApi'
+import authApi from './model/authApi'
+import userApi from './model/userApi'
+import roleApi from './model/roleApi'
+import permissionApi from './model/permissionApi'
+import LineUserApi from './model/line-userApi'
+import nikeApi from './model/nikeApi'
+import hypebeastApi from './model/hypebeastApi'
+import ithomeApi from './model/ithomeApi'
 
 export const api = {
   authApi,

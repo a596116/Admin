@@ -109,3 +109,4 @@ const actions = {
   },
 }
 </script>
+@/apis/model/nikeApi
