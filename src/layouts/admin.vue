@@ -2,7 +2,7 @@
   <div class="relative flex items-center w-full h-full gap-3 p-3 bg-hd-bg text-hd-dark max-sm:p-1">
     <Menu />
     <div
-      class="content grid h-full w-full grid-rows-[auto_1fr]"
+      class="content grid h-full w-full grid-rows-[auto_1fr] flex-1"
       :class="{
         'grid-rows-[auto_auto_1fr]': menuStore.isHistoryCollapse,
       }">
