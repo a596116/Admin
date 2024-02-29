@@ -49,7 +49,7 @@ export default ({ command }: ConfigEnv): any => {
     },
     server: {
       port: 3069,
-      base: "./ ", //生产环境路径
+      // base: "./ ", //生产环境路径
       proxy: {
         '/api': {
           target: process.env.VITE_BASEURL,
