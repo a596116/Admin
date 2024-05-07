@@ -7,7 +7,6 @@
       label-position="top"
       :hide-required-asterisk="true">
       <h1>{{ title }}</h1>
-
       <el-form-item
         v-for="f of fields"
         :key="f.name"
